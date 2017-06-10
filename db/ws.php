@@ -1981,6 +1981,7 @@ if(!empty($_SESSION['nivsmartid']))
 		}
 		if(!empty($rid)) $ldata['if_referred']=$rid; else $ldata['if_referred']=0;
 
+
 		$cid=addRecord(CUSTOMERDETAILS,$cdata);
 		if($cid)
 		{
