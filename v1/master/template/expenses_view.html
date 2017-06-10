@@ -1,0 +1,81 @@
+ <form class="form-horizontal" role="form" name="updateExpenses" id="updateExpenses" novalidate ng-submit="subExpensesStatus(updateExpenses.$valid)">
+ <div class="assignbox"><h4>Token ID: {{data.tokenid}}</h4>
+    <div class="assignbody" ng-if="isView">
+    <p><b>Employee ID:</b> {{data.empid}} &nbsp; &nbsp; &nbsp; <b>Employee Name:</b> {{data.emp_name}} &nbsp; &nbsp; &nbsp; <b>Employee Branch:</b> {{data.branch_name}}</p>
+    <b>From Date: </b> {{data.from_date}} &nbsp; &nbsp; &nbsp;  <b>To Date: </b> {{data.to_date}}
+    <br />
+    <table width="100%" border="1" rules="all" cellpadding="5" cellspacing="5">
+    <tr>
+    <th style="padding: 5px" rowspan="2">Sl.No</th>
+    <th style="padding: 5px" rowspan="2">Type</th>
+    <th style="padding: 5px" rowspan="2">Amount</th>
+    <th style="padding: 5px" rowspan="2">Remarks</th>
+    <th style="padding: 5px;text-align:center;" colspan="2">Admin</th>
+    <th style="padding: 5px;text-align:center;" colspan="2">Master</th>
+    <tr>
+    <th style="padding: 5px">Status</th>
+    <th style="padding: 5px">Remarks</th>
+    <th style="padding: 5px">Status</th>
+    <th style="padding: 5px">Remarks</th>
+    </tr>
+    <tr ng-repeat="type in data.rows" ng-if="type.type!=''">
+    <td style="padding: 5px">{{$index+1}}</td>
+    <td style="padding: 5px"><span ng-repeat="typeid in types">{{typeid.id==type.type ? typeid.label : ''}}</span></td>
+    <td style="padding: 5px">{{type.amount}}</td>
+    <td style="padding: 5px">{{type.remarks}}</td>
+    <td style="padding: 5px">{{type.admin_status}}</td>
+    <td style="padding: 5px">{{type.admin_remarks}}</td>
+    <td style="padding: 5px">{{type.master_status}}</td>
+    <td style="padding: 5px">{{type.master_remarks}}</td>
+    </tr>
+    </table>
+    <p><b>Payment: </b> &nbsp; {{data.paid_status==1 ? 'Paid' : 'Pending'}}</p>
+    <p ng-if="data.paid_date_time!=''"><b>Paid Date: </b> &nbsp;{{data.paid_date_time}}</p>
+    <p><b>Remarks: </b> &nbsp; {{data.paid_remarks}}</p>
+    <br />
+        <div class="form-group">
+           <div class="col-sm-offset-3 col-sm-3">
+            <button type="button" ng-click="getUpdate()" class="btn btn-primary" ng-if="data.paid_status==0">Update</button>
+            <button type="reset" class="btn btn-default" ng-click="closeThisDialog(0)"><span ng-if="data.paid_status==0">Cancel</span><span ng-if="data.paid_status==1">Close</span></button>
+        </div>
+        </div>
+</div>
+
+    <div class="assignbody" ng-if="!isView">
+    <b>From Date: </b> {{data.from_date}} <b>To Date: </b> {{data.to_date}}
+    <br />
+    <table width="100%" border="1" rules="all" cellpadding="5" cellspacing="5">
+    <tr>
+    <th style="padding: 5px" rowspan="2">Sl.No</th>
+    <th style="padding: 5px" rowspan="2">Type</th>
+    <th style="padding: 5px" rowspan="2">Amount</th>
+    <th style="padding: 5px" rowspan="2">Remarks</th>
+    <th style="padding: 5px;text-align:center;" colspan="2">Admin</th>
+    <th style="padding: 5px;text-align:center;" colspan="2">Master</th>
+    <tr>
+    <th style="padding: 5px">Status</th>
+    <th style="padding: 5px">Remarks</th>
+    <th style="padding: 5px">Status</th>
+    <th style="padding: 5px">Remarks</th>
+    </tr>
+    <tr ng-repeat="type in data.rows" ng-if="type.type!=''">
+    <td style="padding: 5px">{{$index+1}}</td>
+    <td style="padding: 5px"><span ng-repeat="typeid in types">{{typeid.id==type.type ? typeid.label : ''}}</span></td>
+    <td style="padding: 5px">{{type.amount}}</td>
+    <td style="padding: 5px">{{type.remarks}}</td>
+    <td style="padding: 5px">{{type.admin_status}}</td>
+    <td style="padding: 5px">{{type.admin_remarks}}</td>
+    <td style="padding: 5px"><select ng-class="{'has-error':submit && updateExpenses.status{{$index}}.$error.required}" ng-required="true" name="status{{$index}}" id="status{{$index}}" ng-model="pay.status[$index]" ng-init="pay.status[$index]=type.master_status!='Pending' ? type.master_status : ''"><option value="">Select</option><option>Paid</option><option>Reject</option></select></td>
+    <td style="padding: 5px"><textarea ng-class="{'has-error':submit && updateExpenses.remarks{{$index}}.$error.required}" ng-required="true" name="remarks{{$index}}" id="remarks{{$index}}" ng-model="pay.remarks[$index]" ng-init="pay.remarks[$index]=type.master_remarks!='Pending' ? type.master_remarks : ''">{{type.master_remarks}}</textarea></td>
+    </tr>
+    </table>
+    <br />
+
+        <div class="form-group">
+           <div class="col-sm-offset-3 col-sm-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-default" ng-click="closeThisDialog(0)">Cancel</button>
+        </div>
+        </div>
+</div>
+</form>

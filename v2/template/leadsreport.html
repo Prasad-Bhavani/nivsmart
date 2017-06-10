@@ -1,0 +1,16 @@
+            <table ng-table="tableParams" class="table" show-filter="true">
+                    <tr ng-repeat="lead in $data" ng-if="$data.length>0">
+                                <td title="'Sl.No'" sortable="'sno'">{{lead.sno}}.</td>
+                                <td data-title="'Lead ID'" sortable="'lead_id'" filter="{'lead_id':'text'}">{{ lead.lead_id }}</td>
+                                <td data-title="'Company name'" sortable="'company_name'" filter="{'company_name':'text'}">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'" sortable="'contact_person'" filter="{'contact_person':'text'}">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'" sortable="'contact_no_1'" filter="{'contact_no_1':'text'}">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Present At'" sortable="'is_present'" filter="{'is_present':'text'}">{{lead.is_present}}</td>
+                                <td data-title="'Status'" align="center" sortable="'status'" filter="{'status':'text'}">{{ lead.status }}</td>
+                                <td data-title="'Action'" align="center"><a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id,lead.status)"><i class="fa fa-eye"></i> View</a>
+                                </td>                                
+                    </tr>
+                    <tr ng-if="$data.length==0">
+                        <td align="center" colspan="9">No Leads Found...</td>
+                    </tr>
+            </table>

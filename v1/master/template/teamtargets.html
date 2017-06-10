@@ -1,0 +1,89 @@
+                <!-- Page Body -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12 col-xs-12 col-lg-offset-3">     
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="widget">
+                                        <div class="widget-header bordered-bottom bordered-blue">
+                                            <span class="widget-caption">Add Team</span>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div>
+                                                <form role="form" method="post" novalidate name="teamTargetForm" id="teamTargetForm" ng-submit="subTargetForm(teamTargetForm.$valid)" class="form-horizontal" autocomplete="off">
+                                                    <div class="form-group">
+                                                        <label class="col-lg-4 col-md-4 col-sm-12 control-label" for="teamname">Team Name</label>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                        <select class="form-control" ng-class="{'has-error':targetSubmit && teamTargetForm.teamname.$error.required || target.exist}" name="teamname" id="teamname" ng-model="target.teamname" ng-required="true"><option value="">Select Team</option>
+                                                        <option ng-repeat="team in teams" value="{{team.id}}">{{team.name}}</option></select>
+                                                        <p ng-show="targetSubmit && teamTargetForm.teamname.$error.required" class="error">Select Team Name</p>
+                                                        </div>
+                                                    </div>
+
+                                                        <div class="form-group">
+                                                        <label class="col-lg-4 col-md-4 col-sm-12 control-label" for="monthstart">Month</label>
+                                                        <div class="col-lg-3 col-md-3 col-sm-12">
+                                                        <select class="form-control" ng-class="{'has-error':targetSubmit && teamTargetForm.monthstart.$error.required}" name="monthstart" id="monthstart" ng-model="target.monthstart" ng-required="true">
+                                                        <option value="">Month</option>
+                                                        <option value="{{$index+1}}" ng-repeat="month in months">{{month}}</option>
+                                                        </select>
+                                                        <p ng-show="targetSubmit && teamTargetForm.monthstart.$error.required" class="error">Select Team Name</p>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-3 col-sm-12">
+                                                            <input type="text" class="form-control" name="period" id="period" ng-class="{'has-error':(targetSubmit && teamTargetForm.period.$error.required) || (targetSubmit && teamTargetForm.period.$error.pattern)}" ng-model="target.period" placeholder="Enter Period" onblur="this.placeholder='Enter Period'" onfocus="this.placeholder=''" ng-required="true" ng-pattern="/^[1-9]$/" />
+                                                        <p ng-show="targetSubmit && teamTargetForm.period.$error.required" class="error">Select Team Name</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-lg-offset-4 col-md-offset-4" ng-if="!ifGenerate">
+                                                    <button type="submit" name="generate" id="generate" class="btn btn-blue">Generate</button>
+                                                    </div>
+
+                                                   <div class="col-lg-offset-4 col-md-offset-4" ng-if="ifGenerate">
+                                                    <button type="submit" name="sub" id="sub" class="btn btn-blue">{{target.id ? 'Update' : 'Add'}}</button> <button type="reset" id="resetbtn" name="resetbtn" class="btn btn-red" ng-click="resetForm()">{{target.id ? 'Cancel' : 'Clear'}}</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                       
+
+                    </div>
+
+                   
+                   <br />
+
+        <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="widget">
+                                <div class="widget-header bordered-bottom bordered-yellow">
+                                    <span class="widget-caption">Teams</span>
+                                   
+                                </div>
+                                <div class="widget-body no-padding">
+                                    <table ng-table="tableParams" class="table" show-filter="true">
+                                        <tr ng-repeat="team in $data" ng-if="$data.length>0">
+                                            <td title="'Sl.No'" sortable="'sno'">{{team.sno}}.</td>
+                                            <td title="'Name'" sortable="'name'" filter="{'name':'text'}">{{team.name}}</td>
+                                            <td title="'Action'"  style="cursor: pointer;text-align:center">
+                                                <a href="#" class="btn btn-success btn-xs" ng-click="getTeam(team.id)" ng-attr-title="Edit"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                <div class="widget-buttons buttons-bordered">
+                                                <label>
+                                                    <input class="checkbox-slider slider-icon colored-success" type="checkbox" name="status_{{team.id}}" id="status_{{team.id}}" ng-model="status_team.id" ng-true-value="1" ng-false-value="0" ng-checked="team.status==1" ng-click="changeTeamStatus(team.id,status_team.id)">
+                                                    <span class="text"></span>
+                                                </label>
+                                            </div></td>
+                                        </tr>
+                                        <tr ng-if="$data.length==0">
+                                            <td colspan="4" align="center">No Records Found...</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Page Body -->

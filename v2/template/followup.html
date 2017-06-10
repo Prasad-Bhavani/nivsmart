@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <div class="widget-body" ng-show="isLeads">
+                                            <div class="widget-main">
+                                                <div class="tabbable">
+
+                                                        <div id="statusupdate" class="tab-pane active">
+
+                                                        <div class="row">
+                                                        <div class="col-sm-12">
+                                                        <div class="col-sm-6"><b>Lead ID:</b> {{lead.lead_id}}</div>
+                                                        <div class="col-sm-6"><b>Company Name:</b> {{lead.company_name}}</div>
+                                                        <div class="col-sm-6"><b>Contact Number:</b> {{lead.contact_no_1}}</div>
+                                                        <div class="col-sm-6"><b>Person Name:</b> {{lead.contact_person}}</div>
+                                                            <form class="form-horizontal" role="form" method="post" name="leadStatus" id="leadStatus" novalidate ng-submit="subFollowupStatus(leadStatus.$valid)">
+                                                            <input type="hidden" name="id" id="id" ng-model="lead.id">
+
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-3 control-label no-padding-right">Lead Status</label>
+                                                        <div class="col-sm-9">
+                                                         <select class="form-control" ng-class="{'has-error':statusSubmitted && leadStatus.status.$error.required}" name="status" id="status" ng-model="leadFollowupStatus.status" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                          <option value="2">Droped</option>
+                                                          <option value="3">Followup</option>
+                                                          <option value="5">Demo Date and Time</option>
+                                                           </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" ng-if="leadFollowupStatus.status==3">
+                                                        <label  class="col-sm-3 control-label no-padding-right">Followup Date and Time</label>
+                                                        <div class="col-sm-9">
+                                                           <input class="form-control" datetime-picker date-format="dd-MMM-yyyy hh:mm a" defaults="true" ng-class="{'has-error':statusSubmitted && leadStatus.followup_date_time.$error.required}"  type="text" placeholder="Select Demo Date and Time" onblur="this.placeholder='Select Demo Date and Time'" onfocus="this.placeholder=''" name="followup_date_time" id="followup_date_time" ng-model="leadFollowupStatus.followup_date_time" ng-required="true"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" ng-if="leadFollowupStatus.status==5">
+                                                        <label  class="col-sm-3 control-label no-padding-right">Demo Date and Time</label>
+                                                        <div class="col-sm-9">
+                                                           <input class="form-control" datetime-picker date-format="dd-MMM-yyyy hh:mm a" defaults="true" ng-class="{'has-error':statusSubmitted && leadStatus.demo_date_time.$error.required}"  type="text" placeholder="Select Demo Date and Time" onblur="this.placeholder='Select Demo Date and Time'" onfocus="this.placeholder=''" name="demo_date_time" id="demo_date_time" ng-model="leadFollowupStatus.demo_date_time" ng-required="true"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-3 control-label">Remarks</label>
+                                                        <div class="col-sm-9">
+                                                            <textarea class="form-control" ng-class="{'has-error':statusSubmitted && leadStatus.is_remarks.$error.required}" placeholder="Enter Remarks" onblur="this.placeholder='Enter Remarks'" onfocus="this.placeholder=''" name="is_remarks" id="is_remarks" ng-model="leadFollowupStatus.is_remarks" ng-required="true"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" style="margin-top: 20px;">
+                                                        <div class="col-sm-offset-3 col-sm-12">
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                            <button type="reset" class="btn btn-default" ng-click="closeThisDialog(0)">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                            </form>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+</body>
+</html>

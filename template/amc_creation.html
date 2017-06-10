@@ -1,0 +1,314 @@
+<style type="text/css">
+fieldset{
+  border: 1px solid black;
+  margin-bottom: 15px;
+}
+legend{
+  border: 1px solid black;
+  text-align: center;
+}
+</style>
+<div class="widget">
+                                        <div class="widget-body">
+                                            <div>
+                                                <form class="form-horizontal" role="form" name="leadForm" id="leadForm" novalidate ng-submit="subForm(leadForm.$valid)">
+                                            <div class="col-sm-6">
+                                                    <div class="widget-header bordered-bottom bordered-blue titlebottom">
+                                            <span class="widget-caption ">Customer Details </span>
+                                        </div>
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Company Name</label>
+                                                        <div class="col-sm-8">
+                                                           <input class="form-control" ng-class="{'has-error':(submitted || leadForm.company_name.$dirty) && leadForm.company_name.$error.required}"  type="text" placeholder="Enter Company name" onblur="this.placeholder='Enter Company Name'" onfocus="this.placeholder=''" name="company_name" id="company_name" ng-model="lead.company_name" ng-required="true" ng-model-options="{ updateOn: 'blur' }" ng-focus="leadForm.$invalid" ng-change="checkDupLead(lead.company_name,lead.contact_no_1,lead.contact_no_2)"/>
+                                                           <p class="error" ng-show="(submitted || leadForm.company_name.$dirty) && leadForm.company_name.$error.required">Please Enter Company Name</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Contact Number</label>
+                                                        <div class="col-sm-8">
+                                                           <input class="form-control" ng-class="{'has-error':(submitted || leadForm.contact_no_1.$dirty) && leadForm.contact_no_1.$error.required || (submitted || leadForm.contact_no_1.$dirty) && leadForm.contact_no_1.$error.pattern}"  type="text" placeholder="Enter Contact Number" onblur="this.placeholder='Enter Contact Number'" onfocus="this.placeholder=''" name="contact_no_1" id="contact_no_1" ng-model="lead.contact_no_1" ng-model-options="{ updateOn: 'blur' }" ng-required="true" ng-change="checkDupLead(lead.company_name,lead.contact_no_1)" ng-pattern="/^\d{10,11}$/" />
+                                                           <p class="error" ng-show="(submitted || leadForm.contact_no_1.$dirty) && leadForm.contact_no_1.$error.required">Please Enter Contact Number</p>
+                                                        <p ng-show="(submitted || leadForm.contact_no_1.$dirty) && leadForm.contact_no_1.$error.pattern" class="error">Please Enter Valid Number</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Alternate Number</label>
+                                                        <div class="col-sm-8">
+                                                           <input class="form-control" ng-class="{'has-error':(submitted || leadForm.contact_no_2.$dirty) && leadForm.contact_no_2.$error.pattern}" type="text" placeholder="Enter Alternate Number" onblur="this.placeholder='Enter Alternate Number'" onfocus="this.placeholder=''" name="contact_no_2" id="contact_no_2" ng-model-options="{ updateOn: 'blur' }" ng-model="lead.contact_no_2" ng-change="checkDupLead(lead.company_name,lead.contact_no_2)" ng-pattern="/^\d{10,11}$/"/>
+                                                        <p ng-show="(submitted || leadForm.contact_no_2.$dirty) && leadForm.contact_no_2.$error.pattern" class="error">Please Enter Valid Number</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Contact Person </label>
+                                                        <div class="col-sm-8">
+                                                            <input class="form-control" ng-class="{'has-error':submitted && leadForm.contact_person.$error.required}"  type="text" placeholder="Enter Contact Person" onblur="this.placeholder='Enter Contact Person'" onfocus="this.placeholder=''" name="contact_person" id="contact_person" ng-model="lead.contact_person" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadForm.contact_person.$error.required">Please Enter Contact Person Name</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Address</label>
+                                                        <div class="col-sm-8">
+                                                           <textarea class="form-control" ng-class="{'has-error':submitted && leadForm.addr.$error.required}"  placeholder="Enter Address" onblur="this.placeholder='Enter Address'" onfocus="this.placeholder=''" name="addr" id="addr" ng-model="lead.addr" ng-required="true"></textarea>
+                                                           <p class="error" ng-show="submitted && leadForm.addr.$error.required">Please Enter Address</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                     <div class="form-group">
+                                                        <label class="col-sm-4 control-label no-padding-right">State</label>
+                                                        <div class="col-sm-8">
+                                                        <select class="form-control" ng-class="{'has-error':submitted && leadForm.state_id.$error.required}" ng-change="getCities(lead.state_id)" name="state_id" id="state_id" ng-model="lead.state_id" ng-required="true" ng-focus="submitted && leadForm.state_id.$error.required">
+                                                            <option value="">Select State</option>
+                                                            <option value="{{state.id}}" ng-repeat="state in states" ng-selected="state.id==lead.state_id">{{state.state}}</option>
+                                                        </select>
+                                                           <p class="error" ng-show="submitted && leadForm.state_id.$error.required">Please Select State</p>
+                                                        </div>
+                                                      </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label no-padding-right">City</label>
+                                                        <div class="col-sm-8">
+                                                        <select class="form-control" ng-class="{'has-error':submitted && leadForm.city_id.$error.required}" name="city_id" id="city_id" ng-model="lead.city_id" ng-required="true">
+                                                            <option value="">Select City</option>
+                                                            <option value="{{city.id}}" ng-repeat="city in cities" ng-selected="city.id==lead.city_id">{{city.city}}</option>
+                                                        </select>
+                                                           <p class="error" ng-show="submitted && leadForm.city_id.$error.required">Please Select City</p>
+                                                        </div>
+                                                      </div>
+                                                    
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Nature of Business </label>
+                                                        <div class="col-sm-8">
+                                                           <select class="form-control" ng-class="{'has-error':submitted && leadForm.nature_of_business_type.$error.required}" name="nature_of_business_type" id="nature_of_business_type" ng-model="lead.nature_of_business_type" ng-required="true" ng-change="getBusinessNamesByID(lead.nature_of_business_type)">
+                                                           <option value="" selected="selected">Select Nature of Business</option>
+                                                           <option value="{{business.id}}" ng-repeat="business in business" ng-selected="business.id==lead.nature_of_business_type">{{business.label}}</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadForm.nature_of_business_type.$error.required">Please Select Nature of Business</p>
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Business Name </label>
+                                                        <div class="col-sm-8">
+                                                           <select class="form-control" ng-class="{'has-error':submitted && leadForm.business_name.$error.required}" name="business_name" id="business_name" ng-model="lead.business_name" ng-required="true">
+                                                           <option value="" selected="selected">Select Business Name</option>
+                                                           <option value="{{businessname.id}}" ng-repeat="businessname in businessnames" ng-selected="businessname.id==lead.business_name">{{businessname.business_name}}</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadForm.business_name.$error.required">Please Select Business Name</p>
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Referred</label>
+                                                        <div class="col-sm-8">
+                                                         <select class="form-control" ng-class="{'has-error':submitted && leadForm.if_referred.$error.required}" name="if_referred" id="if_referred" ng-model="lead.if_referred" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                           <option value="1" ng-selected="lead.if_referred>0">Yes</option>
+                                                           <option value="0" ng-selected="lead.if_referred=='0'">No</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadForm.if_referred.$error.required">Please Select Referred or Not</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group" ng-if="lead.if_referred>0">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Referred Company Name </label>
+                                                        <div class="col-sm-8">
+                                                            <input class="form-control" ng-class="{'has-error':submitted && leadForm.referred_company.$error.required}"  type="text" placeholder="Enter Referred Company Name" onblur="this.placeholder='Enter Referred Company Name'" onfocus="this.placeholder=''" name="referred_company" id="referred_company" ng-model="lead.referred_company" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadForm.referred_company.$error.required">Please Enter Referred Company name</p>
+                                                        </div>
+                                                    </div> 
+                                                    
+                                                     <div class="form-group" ng-if="lead.if_referred>0">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Referred Person</label>
+                                                        <div class="col-sm-8">
+                                                            <input class="form-control" ng-class="{'has-error':submitted && leadForm.referred_person.$error.required}"  type="text" placeholder="Enter Referred Person" onblur="this.placeholder='Enter Referred Person'" onfocus="this.placeholder=''" name="referred_person" id="referred_person" ng-model="lead.referred_person" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadForm.referred_person.$error.required">Please Enter Referred Person</p>
+                                                        </div>
+                                                    </div> 
+                                                    
+                                                     <div class="form-group" ng-if="lead.if_referred>0">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Referred Contact No</label>
+                                                        <div class="col-sm-8">
+                                                            <input class="form-control" ng-class="{'has-error':submitted && leadForm.referred_contact_no.$error.required}"  type="text" placeholder="Enter Referred Contact No" onblur="this.placeholder='Enter Referred Contact No'" onfocus="this.placeholder=''" name="referred_contact_no" id="referred_contact_no" ng-model="lead.referred_contact_no" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadForm.referred_contact_no.$error.required">Please Enter Referred Contact Number</p>
+                                                        </div>
+                                                    </div> 
+                                    </div>
+                                    <div class="col-sm-6">
+<div class="widget-header bordered-bottom bordered-blue titlebottom">
+                                            <span class="widget-caption ">Tally Information </span>
+                                        </div>
+
+                                                    <div class="form-group" ng-if="sroleid==14">
+                                                        <label class="col-sm-4 control-label no-padding-right">Source of Lead</label>
+                                                        <div class="col-sm-8">
+                                                        <select class="form-control" name="source_from" id="source_from" ng-model="lead.source_from" ng-required="true">
+                                                            <option value="{{source.id}}" ng-repeat="source in sources" ng-selected="source.id==lead.source_from">{{source.label}}</option>
+                                                        </select>
+                                                        </div>
+                                                      </div>
+
+                                                     <!--<div class="form-group">
+                                                        <label class="col-sm-4 control-label no-padding-right">Branch</label>
+                                                        <div class="col-sm-8">
+                                                        <select class="form-control" name="lead_branch_id" id="lead_branch_id" ng-model="lead.lead_branch_id" ng-required="true">
+                                                            <option value="{{branch.id}}" ng-repeat="branch in branches" ng-selected="branch.id==lead.lead_branch_id">{{branch.branch_name}}</option>
+                                                        </select>
+                                                        </div>
+                                                      </div>-->
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Tally Serial No </label>
+                                                        <div class="col-sm-8">
+                                                             <input class="form-control" ng-class="{'has-error':submitted && leadForm.tally_serial_no.$error.required}"  type="text" placeholder="Enter Tally Serial No" onblur="this.placeholder='Enter Tally Serial No'" onfocus="this.placeholder=''" name="tally_serial_no" id="tally_serial_no" ng-model="lead.tally_serial_no" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadForm.tally_serial_no.$error.required">Please Enter Existing Tally Serial Number</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">AMC Expiry Date</label>
+                                                        <div class="col-sm-8">
+                                                           <input class="form-control" datetime-picker date-format="dd-MMM-yyyy" defaults="true" ng-class="{'has-error':submitted && leadForm.amc_expiry_date.$error.required}"  type="text" placeholder="Select AMC Expiry Date" onblur="this.placeholder='Select AMC Expiry Date'" onfocus="this.placeholder=''" name="amc_expiry_date" id="amc_expiry_date" ng-model="lead.amc_expiry_date" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadForm.amc_expiry_date.$error.required">Please Select AMC Expiry Date</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">TSS<br />(Tally Software Service Expiry Date)</label>
+                                                        <div class="col-sm-8">
+                                                           <input class="form-control" datetime-picker date-format="dd-MMM-yyyy" defaults="true" ng-class="{'has-error':submitted && leadForm.tally_expiry_date.$error.required}"  type="text" placeholder="Select Tally Expiry Date" onblur="this.placeholder='Select Tally Expiry Date'" onfocus="this.placeholder=''" name="tally_expiry_date" id="tally_expiry_date" ng-model="lead.tally_expiry_date" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadForm.tally_expiry_date.$error.required">Please Select Tally Expiry Date</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Hardaware Name </label>
+                                                        <div class="col-sm-8">
+                                                             <input class="form-control" ng-class="{'has-error':submitted && leadForm.hardware_contact_name.$error.required}"  type="text" placeholder="Enter Hardware Name" onblur="this.placeholder='Enter Hardware Name'" onfocus="this.placeholder=''" name="hardware_contact_name" id="hardware_contact_name" ng-model="lead.hardware_contact_name" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadForm.hardware_contact_name.$error.required">Please Enter Hardware Name</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Hardware Phone Number </label>
+                                                        <div class="col-sm-8">
+                                                             <input class="form-control" ng-class="{'has-error':submitted && leadForm.hardware_phno.$error.required}"  type="text" placeholder="Enter Hardware Phone Number" onblur="this.placeholder='Enter Hardware Phone Number'" onfocus="this.placeholder=''" name="hardware_phno" id="hardware_phno" ng-model="lead.hardware_phno" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadForm.hardware_phno.$error.required">Please Enter Hardware Phone Number</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Hardware Optional Number  </label>
+                                                        <div class="col-sm-8">
+                                                             <input class="form-control" type="text" placeholder="Enter Optional Number" onblur="this.placeholder='Enter Optional Number'" onfocus="this.placeholder=''" name="hardware_optional_no" id="hardware_optional_no" ng-model="lead.hardware_optional_no"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Accountant Name </label>
+                                                        <div class="col-sm-8">
+                                                             <input class="form-control" ng-class="{'has-error':submitted && leadForm.accountant_contact_name.$error.required}"  type="text" placeholder="Enter Accountant Name" onblur="this.placeholder='Enter Accountant Name'" onfocus="this.placeholder=''" name="accountant_contact_name" id="accountant_contact_name" ng-model="lead.accountant_contact_name" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadForm.accountant_contact_name.$error.required">Please Enter Accountant Name</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Accountant Phone Number </label>
+                                                        <div class="col-sm-8">
+                                                             <input class="form-control" ng-class="{'has-error':submitted && leadForm.accountant_phno.$error.required}"  type="text" placeholder="Enter Accountant Phone Number" onblur="this.placeholder='Enter Accountant Phone Number'" onfocus="this.placeholder=''" name="accountant_phno" id="accountant_phno" ng-model="lead.accountant_phno" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadForm.accountant_phno.$error.required">Please Enter Accountant Phone Number</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Accountant Optional Number  </label>
+                                                        <div class="col-sm-8">
+                                                             <input class="form-control" type="text" placeholder="Enter Optional Number" onblur="this.placeholder='Enter Optional Number'" onfocus="this.placeholder=''" name="accountant_optional_no" id="accountant_optional_no" ng-model="lead.accountant_optional_no"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Remarks</label>
+                                                        <div class="col-sm-8">
+                                                            <textarea class="form-control" ng-class="{'has-error':submitted && leadForm.remarks.$error.required}" placeholder="Enter Remarks" onblur="this.placeholder='Enter Remarks'" onfocus="this.placeholder=''" name="remarks" id="remarks" ng-model="lead.remarks" ng-required="true"></textarea>
+                                                           <p class="error" ng-show="submitted && leadForm.remarks.$error.required">Please Enter Remarks</p>
+                                                        </div>
+                                                    </div>
+                                                  </div>
+
+                                            <div class="clearfix"></div>
+
+<div class="widget-header bordered-bottom bordered-blue titlebottom">
+                                            <span class="widget-caption ">Business Information </span>
+                                        </div>
+                                            <div class="form-group">
+                                              <label  class="col-sm-3 control-label"><b>Invoicing</b></label>
+                                                <div class="col-sm-9">
+                                                   <div class="checkbox col-sm-4" ng-repeat="invo in domainbusiness.Invoicing" style="display:inline">
+                                                      <label>
+                                                        <input type="checkbox" class="colored-success" ng-model="selected.invoice[invo.id]" ng-value="{{invo.id}}" ng-click="checkInvoiceCount()" ng-checked="checklist.invoice.indexOf(invo.id)>=0">
+                                                        <span class="text">{{invo.label}}</span>
+                                                      </label>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <p ng-show="submitted && invoiceCount==0" class="error">Please Select At least one</p>
+                                                </div>
+                                              </div>
+
+                                            <div class="form-group">
+                                              <label  class="col-sm-3 control-label"><b>Inventory</b></label>
+                                                <div class="col-sm-9">
+                                                   <div class="checkbox col-sm-4" ng-repeat="invent in domainbusiness.Inventory" style="display:inline">
+                                                      <label>
+                                                        <input type="checkbox" class="colored-success" ng-model="selected.inventory[invent.id]" ng-value="{{invent.id}}" ng-click="checkInventoryCount()" ng-checked="checklist.inventory.indexOf(invent.id)>=0">
+                                                        <span class="text">{{invent.label}} </span>
+                                                      </label>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <p ng-show="submitted && inventoryCount==0" class="error">Please Select At least one</p>
+                                                </div>
+                                              </div>
+
+                                            <div class="form-group">
+                                              <label  class="col-sm-3 control-label"><b>Return Computation and Filing</b></label>
+                                                <div class="col-sm-9">
+                                                   <div class="checkbox col-sm-4" ng-repeat="fil in domainbusiness.Filing" style="display:inline">
+                                                      <label>
+                                                        <input type="checkbox" class="colored-success" ng-model="selected.filing[fil.id]" ng-value="{{fil.id}}" ng-click="checkFilingCount()" ng-checked="checklist.filing.indexOf(fil.id)>=0">
+                                                        <span class="text">{{fil.label}}</span>
+                                                      </label>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <p ng-show="submitted && filingCount==0" class="error">Please Select At least one</p>
+                                                </div>
+                                              </div>
+
+                                            <div class="form-group">
+                                              <label  class="col-sm-3 control-label"><b>Diagonals</b></label>
+                                                <div class="col-sm-9">
+                                                   <div class="checkbox col-sm-4" ng-repeat="dia in domainbusiness.Diagonals" style="display:inline">
+                                                      <label>
+                                                        <input type="checkbox" class="colored-success" ng-model="selected.diagonals[dia.id]" ng-value="{{dia.id}}" ng-click="checkDiagonalsCount(selected.diag[dia.id])" ng-checked="checklist.diagonals.indexOf(dia.id)>=0">
+                                                        <span class="text">{{dia.label}}</span>
+                                                      </label>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <p ng-show="submitted && diagonalsCount==0" class="error">Please Select At least one</p>
+                                                </div>
+                                              </div>
+                                                     {{invoiceCount}}<br />{{inventoryCount}}
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-5 col-sm-10">
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                            <button type="reset" class="btn btn-default" ng-click="resetForm()" ng-if="!leadid">Clear</button>
+                                                            <button type="reset" class="btn btn-default" ng-click="closeThisDialog(0)" ng-if="leadid">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>    

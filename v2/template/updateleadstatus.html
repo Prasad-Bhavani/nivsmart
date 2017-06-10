@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+.info
+{
+  background-color: #6abce2 !important;
+  border-color: #6abce2;
+  color: white !important;
+}
+
+.info:hover
+{
+  color: #fff;
+  background-color: #6abce2 !important;
+  border-color: #6abce2 !important;
+}
+</style>
+</head>
+<body>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <div class="assignbox"><h4>Lead ID: {{lead.lead_id}} </h4>
+                                                <div class="assignbody">
+                                                <form class="form-horizontal" role="form" name="updateStatus" id="updateStatus" novalidate ng-submit="subLeadStatus(updateStatus.$valid)">
+
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-3 control-label no-padding-right">Lead Status</label>
+                                                        <div class="col-sm-9">
+                                                         <select class="form-control" ng-class="{'has-error':submitted && updateStatus.status.$error.required}" name="status" id="status" ng-model="lead.status" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                          <option value="{{status.id}}" ng-repeat="status in LEADSTATUS" ng-if="status.id!=6 && status.id!=1 && status.id!=0 && status.id!=7 && (lead.verified!=0 || status.id!=4)">{{status.id==5 ? status.option : status.label}}</option>
+                                                           </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div  ng-if="lead.status==4 && lead.verified==1 && lead.if_serial_no==0">
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-3 control-label">Serial No</label>
+                                                        <div class="col-sm-9">
+                                                           <input class="form-control" ng-class="{'has-error':submitted && updateStatus.serial_no.$error.required}"  type="text" placeholder="Enter Serial Number" onblur="this.placeholder='Enter Serial Number'" onfocus="this.placeholder=''" name="serial_no" id="serial_no" ng-model="lead.serial_no" ng-required="true"/>
+                                                        </div>
+                                                    </div>
+
+                                            <div class="form-group">
+                                              <label  class="col-sm-3 control-label">Invoicing</label>
+                                                <div class="col-sm-9">
+                                                   <div class="checkbox col-sm-4" ng-repeat="invo in domainbusiness.Invoicing" style="display:inline">
+                                                      <label>
+                                                        <input type="checkbox" class="colored-success" ng-model="selected.invoice[invo.id]" ng-value="{{invo.id}}" ng-click="checkInvoiceCount()" ng-checked="lead.invoice.indexOf(invo.id)>=0">
+                                                        <span class="text">{{invo.label}}</span>
+                                                      </label>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <p ng-show="submitted && invoiceCount==0" class="error">Please Select At least one</p>
+                                                </div>
+                                              </div>
+
+                                            <div class="form-group">
+                                              <label  class="col-sm-3 control-label">Inventory</label>
+                                                <div class="col-sm-9">
+                                                   <div class="checkbox col-sm-4" ng-repeat="invent in domainbusiness.Inventory" style="display:inline">
+                                                      <label>
+                                                        <input type="checkbox" class="colored-success" ng-model="selected.inventory[invent.id]" ng-value="{{invent.id}}" ng-click="checkInventoryCount()" ng-checked="lead.inventory.indexOf(invent.id)>=0">
+                                                        <span class="text">{{invent.label}} </span>
+                                                      </label>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <p ng-show="submitted && inventoryCount==0" class="error">Please Select At least one</p>
+                                                </div>
+                                              </div>
+
+                                            <div class="form-group">
+                                              <label  class="col-sm-3 control-label">Return Computation and Filing</label>
+                                                <div class="col-sm-9">
+                                                   <div class="checkbox col-sm-4" ng-repeat="fil in domainbusiness.Filing" style="display:inline">
+                                                      <label>
+                                                        <input type="checkbox" class="colored-success" ng-model="selected.filing[fil.id]" ng-value="{{fil.id}}" ng-click="checkFilingCount()" ng-checked="lead.filing.indexOf(fil.id)>=0">
+                                                        <span class="text">{{fil.label}}</span>
+                                                      </label>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <p ng-show="submitted && filingCount==0" class="error">Please Select At least one</p>
+                                                </div>
+                                              </div>
+
+                                            <div class="form-group">
+                                              <label  class="col-sm-3 control-label">Diagonals</label>
+                                                <div class="col-sm-9">
+                                                   <div class="checkbox col-sm-4" ng-repeat="dia in domainbusiness.Diagonals" style="display:inline">
+                                                      <label>
+                                                        <input type="checkbox" class="colored-success" ng-model="selected.diagonals[dia.id]" ng-value="{{dia.id}}" ng-click="checkDiagonalsCount(selected.diag[dia.id])" ng-checked="lead.diagonals.indexOf(dia.id)>=0">
+                                                        <span class="text">{{dia.label}}</span>
+                                                      </label>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <p ng-show="submitted && diagonalsCount==0" class="error">Please Select At least one</p>
+                                                </div>
+                                              </div>
+ 
+                                              <div class="form-group">
+                                                <label class="col-sm-3 control-label no-padding-right">Implementation Leads Generated</label>
+                                                  <div class="col-sm-9">
+                                                    <textarea class="form-control" ng-class="{'has-error':submitted && updateStatus.lead_implementation.$error.required}" placeholder="Enter Implementation Lead Generated" onblur="this.placeholder='Enter Implementation Lead Generated'" onfocus="this.placeholder=''" name="lead_implementation" id="lead_implementation" ng-model="lead.lead_implementation" ng-required="true"></textarea>
+                                                </div>
+                                            </div>
+
+                                              <div class="form-group">
+                                                <label class="col-sm-3 control-label no-padding-right">Next Contact Date</label>
+                                                  <div class="col-sm-9">
+                                                    <input class="form-control" datetime-picker date-format="dd-MMM-yyyy" defaults="true" ng-class="{'has-error':submitted && updateStatus.next_contact_date.$error.required}"  type="text" placeholder="Select Demo Date and Time" onblur="this.placeholder='Select Demo Date and Time'" onfocus="this.placeholder=''" name="next_contact_date" id="next_contact_date" ng-model="lead.next_contact_date" ng-required="true"/>
+                                                </div>
+                                            </div>
+                                            </div>
+                                                    <div class="form-group" ng-if="lead.status==3">
+                                                        <label  class="col-sm-3 control-label no-padding-right">Followup Date and Time</label>
+                                                        <div class="col-sm-9">
+                                                           <input class="form-control" datetime-picker date-format="dd-MMM-yyyy hh:mm a" defaults="true" ng-class="{'has-error':submitted && updateStatus.followup_date_time.$error.required}"  type="text" placeholder="Select Demo Date and Time" onblur="this.placeholder='Select Demo Date and Time'" onfocus="this.placeholder=''" name="followup_date_time" id="followup_date_time" ng-model="lead.followup_date_time" ng-required="true"/>
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="form-group" ng-if="lead.status==5">
+                                                        <label  class="col-sm-3 control-label no-padding-right">Transfer to</label>
+                                                        <div class="col-sm-9">
+                                                         <select class="form-control" ng-class="{'has-error':submitted && updateStatus.moveto.$error.required}" name="moveto" id="moveto" ng-model="lead.moveto" ng-required="true" ng-change="getEmps(lead.moveto,lead.lead_id)">
+                                                          <option value="" selected="selected">Select</option>
+                                                          <option value="1">Employees</option>
+                                                          <option value="7">Accountant</option>
+                                                           </select>
+                                                        </div>
+                                                    </div>
+
+                                          <div ng-if="lead.moveto==7 && lead.status==5 && lead.qid=='0'">
+                                            <div><b>Quotation</b></div>
+                                            <div ng-repeat="quot in quotation" id="quotation_{{quot}}">
+                                              <div class="col-sm-4 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                         <select class="form-control" ng-class="{'has-error':submitted && updateStatus.prospect_details_id_{{quot}}.$error.required}" name="prospect_details_id_{{quot}}" id="prospect_details_id_{{quot}}" ng-model="lead.quotation.prospect_details_id[quot]" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                          <option ng-repeat="detail in prospectDetails" value="{{detail.product_name}}" ng-selected="detail.product_name==lead.quotation.prospect_details_id[quot]">{{detail.product_name}}</option>
+                                                           </select>
+                                                        </div>
+                                                    </div>
+                                              </div>
+
+                                              <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                           <input class="form-control" ng-class="{'has-error':submitted && (updateStatus.rate_{{quot}}.$error.required || updateStatus.rate_{{quot}}.$error.pattern)}"  type="text" placeholder="Rate" onblur="this.placeholder='Rate'" onfocus="this.placeholder=''" name="rate_{{quot}}" id="rate_{{quot}}" ng-model="lead.quotation.rate[quot]" ng-required="true" ng-pattern="/^[1-9][0-9]*$/" ng-validate="number" ng-change="getAmount(lead.quotation)"/>
+                                                        </div>
+                                                    </div>
+                                              </div>
+
+                                              <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                           <input class="form-control" ng-class="{'has-error':submitted && (updateStatus.quantity_{{quot}}.$error.required || updateStatus.quantity_{{quot}}.$error.pattern)}"  type="text" placeholder="Quantity" onblur="this.placeholder='Quantity'" onfocus="this.placeholder=''" name="quantity_{{quot}}" id="quantity_[quot]" ng-model="lead.quotation.quantity[quot]" ng-required="true" ng-pattern="/^[1-9][0-9]*$/" ng-validate="number" ng-change="getAmount(lead.quotation)"/>
+                                                        </div>
+                                                    </div>
+                                                  </div>
+
+                                              <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-9">
+                                                           <input class="form-control" ng-class="{'has-error':submitted && updateStatus.amount_{{quot}}.$error.required}"  type="text" placeholder="Total Amount" onblur="this.placeholder='Total Amount'" onfocus="this.placeholder=''" name="amount_{{quot}}" id="amount_{{quot}}" ng-model="lead.quotation.rate[quot]*lead.quotation.quantity[quot]" ng-required="true" ng-disabled="true"/>
+                                                        </div>
+
+                                                        <div class="col-sm-2" ng-if="$index+1==quotation.length">
+                                                          <a href="#" class="btn btn-default btn-xs purple" style="margin-top: 5px;" ng-click="columnCheck('remove',quot)" ng-if="2<=quotation.length"><i class="fa fa-minus"></i></a>
+                                                          <a href="#" class="btn btn-default btn-xs purple" style="margin-top: 5px;" ng-click="columnCheck('add',1)"><i class="fa fa-plus"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-3 control-label">Description</label>
+                                                        <div class="col-sm-9">
+                                                            <textarea class="form-control" ng-class="{'has-error':submitted && updateStatus.des.$error.required}" placeholder="Enter Description" onblur="this.placeholder='Enter Description'" onfocus="this.placeholder=''" name="des" id="des" ng-model="lead.des" ng-required="true"></textarea>
+                                                        </div>
+                                                    </div>
+                                              </div>
+                                                    
+                                                     <div class="form-group" ng-if="lead.moveto==1 && lead.status==5">
+                                                        <label class="col-sm-3 control-label no-padding-right">Employees</label>
+                                                        <div class="col-sm-9">
+                                                        <select class="form-control" ng-class="{'has-error':submitted && updateStatus.emp_id.$error.required}" name="emp_id" id="emp_id" ng-model="empid.emp_id" ng-required="true">
+                                                            <option value="">Select Employee</option>
+                                                            <option value="{{emp.id}}" ng-repeat="emp in emps" ng-if="sempid!=emp.id">{{emp.emp_id}} &nbsp; {{emp.emp_name}}</option>
+                                                        </select>
+                                                        </div>
+                                                      </div>
+
+                                                    <div class="form-group" ng-if="lead.status">
+                                                        <label  class="col-sm-3 control-label">Remarks</label>
+                                                        <div class="col-sm-9">
+                                                            <textarea class="form-control" ng-class="{'has-error':submitted && updateStatus.is_remarks.$error.required}" placeholder="Enter Remarks" onblur="this.placeholder='Enter Remarks'" onfocus="this.placeholder=''" name="is_remarks" id="is_remarks" ng-model="lead.is_remarks" ng-required="true"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-3 col-sm-10">
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                            <button type="reset" class="btn btn-default" ng-click="closeThisDialog(0)">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            </div>
+                                    </div>
+                    </div>
+</body>
+</html>

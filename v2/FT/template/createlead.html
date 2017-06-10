@@ -1,0 +1,311 @@
+<div class="widget">
+                                                      <input type="hidden" name="lead_branch_id" id="lead_branch_id" ng-model="lead_branch_id">
+                                        <div class="widget-body">
+                                            <div>
+                                                <form class="form-horizontal" role="form" name="leadUpdateForm" id="leadUpdateForm" novalidate ng-submit="subColdLeadForm(leadUpdateForm.$valid)">
+
+<div class="col-sm-6">
+                                                    <div class="widget-header bordered-bottom bordered-blue titlebottom">
+                                            <span class="widget-caption ">Customer Details </span>
+                                        </div>
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Company Name</label>
+                                                        <div class="col-sm-8">
+                                                           <input class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.company_name.$error.required}"  type="text" placeholder="Enter Company name" onblur="this.placeholder='Enter Company Name'" onfocus="this.placeholder=''" name="company_name" id="company_name" ng-model="lead.company_name" ng-required="true" ng-focus="leadUpdateForm.$invalid"/>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.company_name.$error.required">Please Enter Company Name</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Contact Number</label>
+                                                        <div class="col-sm-8">
+                                                           <input class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.contact_no_1.$error.required || submitted && leadUpdateForm.contact_no_1.$error.pattern}"  type="text" placeholder="Enter Contact Number" onblur="this.placeholder='Enter Contact Number'" onfocus="this.placeholder=''" name="contact_no_1" id="contact_no_1" ng-model="lead.contact_no_1" ng-required="true" ng-pattern="/^\d{10}$/"/>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.contact_no_1.$error.required">Please Enter Contact Number</p>
+                                                        <p ng-show="submitted && leadUpdateForm.contact_no_1.$error.pattern" class="error">Please Enter Valid Number</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Alternate Number</label>
+                                                        <div class="col-sm-8">
+                                                           <input class="form-control" type="text" placeholder="Enter Alternate Number" onblur="this.placeholder='Enter Alternate Number'" onfocus="this.placeholder=''" name="contact_no_2" id="contact_no_2" ng-model="lead.contact_no_2"/>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Contact Person </label>
+                                                        <div class="col-sm-8">
+                                                            <input class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.contact_person.$error.required}"  type="text" placeholder="Enter Contact Person" onblur="this.placeholder='Enter Contact Person'" onfocus="this.placeholder=''" name="contact_person" id="contact_person" ng-model="lead.contact_person" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.contact_person.$error.required">Please Enter Contact Person Name</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Address</label>
+                                                        <div class="col-sm-8">
+                                                           <textarea class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.addr.$error.required}"  placeholder="Enter Address" onblur="this.placeholder='Enter Address'" onfocus="this.placeholder=''" name="addr" id="addr" ng-model="lead.addr" ng-required="true"></textarea>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.addr.$error.required">Please Enter Address</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                     <div class="form-group">
+                                                        <label class="col-sm-4 control-label no-padding-right">State</label>
+                                                        <div class="col-sm-8">
+                                                        <select class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.state_id.$error.required}" ng-change="getCities(lead.state_id)" name="state_id" id="state_id" ng-model="lead.state_id" ng-required="true" ng-focus="submitted && leadUpdateForm.state_id.$error.required">
+                                                            <option value="">Select State</option>
+                                                            <option value="{{state.id}}" ng-repeat="state in states" ng-selected="state.id==lead.state_id">{{state.state}}</option>
+                                                        </select>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.state_id.$error.required">Please Select State</p>
+                                                        </div>
+                                                      </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label no-padding-right">City</label>
+                                                        <div class="col-sm-8">
+                                                        <select class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.city_id.$error.required}" name="city_id" id="city_id" ng-model="lead.city_id" ng-required="true">
+                                                            <option value="">Select City</option>
+                                                            <option value="{{city.id}}" ng-repeat="city in cities" ng-selected="city.id==lead.city_id">{{city.city}}</option>
+                                                        </select>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.city_id.$error.required">Please Select City</p>
+                                                        </div>
+                                                      </div>
+                                                    
+                                                     
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Nature of Business </label>
+                                                        <div class="col-sm-8">
+                                                           <select class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.nature_of_business_type.$error.required}" name="nature_of_business_type" id="nature_of_business_type" ng-model="lead.nature_of_business_type" ng-required="true" ng-change="getBusinessNamesByID(lead.nature_of_business_type)">
+                                                           <option value="" selected="selected">Select Nature of Business</option>
+                                                           <option value="{{business.id}}" ng-repeat="business in business" ng-selected="business.id==lead.nature_of_business_type">{{business.label}}</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.nature_of_business_type.$error.required">Please Select Nature of Business</p>
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Business Name </label>
+                                                        <div class="col-sm-8">
+                                                           <select class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.business_name.$error.required}" name="business_name" id="business_name" ng-model="lead.business_name" ng-required="true">
+                                                           <option value="" selected="selected">Select Business Name</option>
+                                                           <option value="{{businessname.id}}" ng-repeat="businessname in businessnames" ng-selected="businessname.id==lead.business_name">{{businessname.business_name}}</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.business_name.$error.required">Please Select Business Name</p>
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Referred</label>
+                                                        <div class="col-sm-8">
+                                                         <select class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.if_referred.$error.required}" name="if_referred" id="if_referred" ng-model="lead.if_referred" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                           <option value="{{lead.if_referred>0 ? lead.if_referred : 'New'}}" ng-selected="lead.if_referred>0">Yes</option>
+                                                           <option value="0" ng-selected="lead.if_referred=='0'">No</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.if_referred.$error.required">Please Select Referred or Not</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group" ng-if="lead.if_referred!='0'">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Referred Company Name </label>
+                                                        <div class="col-sm-8">
+                                                            <input class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.referred_company.$error.required}"  type="text" placeholder="Enter Referred Company Name" onblur="this.placeholder='Enter Referred Company Name'" onfocus="this.placeholder=''" name="referred_company" id="referred_company" ng-model="lead.referred_company" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.referred_company.$error.required">Please Enter Referred Company name</p>
+                                                        </div>
+                                                    </div> 
+                                                    
+                                                     <div class="form-group" ng-if="lead.if_referred!='0'">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Referred Person</label>
+                                                        <div class="col-sm-8">
+                                                            <input class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.referred_person.$error.required}"  type="text" placeholder="Enter Referred Person" onblur="this.placeholder='Enter Referred Person'" onfocus="this.placeholder=''" name="referred_person" id="referred_person" ng-model="lead.referred_person" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.referred_person.$error.required">Please Enter Referred Person</p>
+                                                        </div>
+                                                    </div> 
+                                                    
+                                                     <div class="form-group" ng-if="lead.if_referred!='0'">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Referred Contact No</label>
+                                                        <div class="col-sm-8">
+                                                            <input class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.referred_contact_no.$error.required}"  type="text" placeholder="Enter Referred Contact No" onblur="this.placeholder='Enter Referred Contact No'" onfocus="this.placeholder=''" name="referred_contact_no" id="referred_contact_no" ng-model="lead.referred_contact_no" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.referred_contact_no.$error.required">Please Enter Referred Contact Number</p>
+                                                        </div>
+                                                    </div> 
+                                    </div>
+                                    <div class="col-sm-6">
+<div class="widget-header bordered-bottom bordered-blue titlebottom">
+                                            <span class="widget-caption ">Tally Information </span>
+                                        </div>
+                                                     <!--<div class="form-group">
+                                                        <label class="col-sm-4 control-label no-padding-right">Source of Lead</label>
+                                                        <div class="col-sm-8">
+                                                        <select class="form-control" name="source_from" id="source_from" ng-model="lead.source_from" ng-required="true">
+                                                            <option value="{{source.id}}" ng-repeat="source in sources" ng-selected="source.id==lead.source_from">{{source.label}}</option>
+                                                        </select>
+                                                        </div>
+                                                      </div>-->
+
+                                                     <div class="form-group">
+                                                        <label class="col-sm-4 control-label no-padding-right">Branch</label>
+                                                        <div class="col-sm-8">
+                                                        <select class="form-control" name="lead_branch_id" id="lead_branch_id" ng-model="lead.lead_branch_id" ng-required="true">
+                                                            <option value="{{branch.id}}" ng-repeat="branch in branches" ng-selected="branch.id==lead.lead_branch_id">{{branch.branch_name}}</option>
+                                                        </select>
+                                                        </div>
+                                                      </div>
+
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Existing Tally Customer</label>
+                                                        <div class="col-sm-8">
+                                                           <select class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.if_tally_customer.$error.required}" name="if_tally_customer" id="if_tally_customer" ng-model="lead.if_tally_customer" ng-required="true">
+                                                            <option value="" selected="selected">Select</option>
+                                                            <option value="1" ng-selected="lead.if_tally_customer=='1'">Yes</option>
+                                                           <option value="0" ng-selected="lead.if_tally_customer=='0'">No</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.if_tally_customer.$error.required">Please Select Existing Tally or Not</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" ng-if="lead.if_tally_customer=='0'">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Any Other Software </label>
+                                                        <div class="col-sm-8">
+                                                             <input class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.any_other_software.$error.required}"  type="text" placeholder="Enter Software Details" onblur="this.placeholder='Enter Software Details'" onfocus="this.placeholder=''" name="any_other_software" id="any_other_software" ng-model="lead.any_other_software" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.any_other_software.$error.required">Please Enter Any Other Software</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group" ng-if="lead.if_tally_customer==1">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Tally Serial No </label>
+                                                        <div class="col-sm-8">
+                                                             <input class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.existing_tally_no.$error.required}"  type="text" placeholder="Enter Tally Serial No" onblur="this.placeholder='Enter Tally Serial No'" onfocus="this.placeholder=''" name="existing_tally_no" id="existing_tally_no" ng-model="lead.existing_tally_no" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.existing_tally_no.$error.required">Please Enter Existing Tally Serial Number</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group" ng-if="lead.if_tally_customer==1">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Opportunity for Renewal or Upgrade </label>
+                                                        <div class="col-sm-8">
+                                                         <select class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.is_upgrade.$error.required}" name="is_upgrade" id="is_upgrade" ng-model="lead.is_upgrade" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                           <option value="1" ng-selected="lead.is_upgrade==1">Yes</option>
+                                                           <option value="0" ng-selected="lead.is_upgrade=='0'">No</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.is_upgrade.$error.required">Please Select Upgrade or Not</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                     <div class="form-group" ng-if="lead.if_tally_customer==1 && lead.is_upgrade==1">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Version Details </label>
+                                                        <div class="col-sm-8">
+                                                             <input class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.upgrade_version.$error.required}"  type="text" placeholder="Enter Version Details" onblur="this.placeholder='Enter Version Details'" onfocus="this.placeholder=''" name="upgrade_version" id="upgrade_version" ng-model="lead.upgrade_version" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.upgrade_version.$error.required">Please Enter Upgrade Version</p>
+                                                        </div>
+                                                    </div>
+                                                      <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Prospect for Tally</label>
+                                                        <div class="col-sm-8">
+                                                         <select class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.if_prospect.$error.required}" name="if_prospect" id="if_prospect" ng-model="lead.if_prospect" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                           <option value="1" ng-selected="lead.if_prospect==1">Yes</option>
+                                                           <option value="0" ng-selected="lead.if_prospect=='0'">No</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.if_prospect.$error.required">Please Select Prospect or Not</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group" ng-if="lead.if_prospect==1">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Prospect Type</label>
+                                                        <div class="col-sm-8">
+                                                         <select class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.prospect_type_id.$error.required}" name="prospect_type_id" id="prospect_type_id" ng-model="lead.prospect_type_id" ng-change="getProspectDetails(lead.prospect_type_id)" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                          <option ng-repeat="type in prospectTypes" value="{{type.id}}" ng-selected="type.id==lead.prospect_type_id">{{type.type}}</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.prospect_type_id.$error.required">Please Select Prospect Type</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                     <div class="form-group" ng-if="lead.if_prospect==1">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Prospect Details</label>
+                                                        <div class="col-sm-8">
+                                                         <select class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.prospect_details_id.$error.required}" name="prospect_details_id" id="prospect_details_id" ng-model="lead.prospect_details_id" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                          <option ng-repeat="detail in prospectDetails" value="{{detail.id}}" ng-selected="detail.id==lead.prospect_details_id">{{detail.product_name}}</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.prospect_details_id.$error.required">Please Select Prospect Details</p>
+                                                        </div>
+                                                    </div>                         
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Interested for Demo</label>
+                                                        <div class="col-sm-8">
+                                                         <select class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.if_interest_demo.$error.required}" name="if_interest_demo" id="if_interest_demo" ng-model="lead.if_interest_demo" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                           <option value="1" ng-selected="lead.if_interest_demo==1">Yes</option>
+                                                           <option value="0" ng-selected="lead.if_interest_demo=='0'">No</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.if_interest_demo.$error.required">Please Select Interested for Demo</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="lead.if_interest_demo==1">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Demo Date and Time</label>
+                                                        <div class="col-sm-8">
+                                                           <input class="form-control" datetime-picker date-format="dd-MMM-yyyy hh:mm a" defaults="true" ng-class="{'has-error':submitted && leadUpdateForm.demo_date_time.$error.required}"  type="text" placeholder="Select Demo Date and Time" onblur="this.placeholder='Select Demo Date and Time'" onfocus="this.placeholder=''" name="demo_date_time" id="demo_date_time" ng-model="lead.demo_date_time" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.demo_date_time.$error.required">Please Select Demo Date and Time</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Remarks</label>
+                                                        <div class="col-sm-8">
+                                                            <textarea class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.remarks.$error.required}" placeholder="Enter Remarks" onblur="this.placeholder='Enter Remarks'" onfocus="this.placeholder=''" name="remarks" id="remarks" ng-model="lead.remarks" ng-required="true"></textarea>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.remarks.$error.required">Please Enter Remarks</p>
+                                                        </div>
+                                                    </div>    
+
+                                                     <div class="form-group" ng-if="lead.is_upgrade==1 || lead.if_prospect==1 || lead.if_interest_demo==1">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Lead Status</label>
+                                                        <div class="col-sm-8">
+                                                         <select class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.status.$error.required}" name="status" id="status" ng-model="lead.status" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                          <option value="2">Droped</option>
+                                                          <option value="5">Moved</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.status.$error.required">Please Select Lead Status</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" ng-if="lead.status==3 && (lead.is_upgrade==1 || lead.if_prospect==1 || lead.if_interest_demo==1)">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Followup Date and Time</label>
+                                                        <div class="col-sm-8">
+                                                           <input class="form-control" datetime-picker date-format="dd-MMM-yyyy hh:mm a" defaults="true" ng-class="{'has-error':submitted && leadUpdateForm.followup_date_time.$error.required}"  type="text" placeholder="Select Demo Date and Time" onblur="this.placeholder='Select Demo Date and Time'" onfocus="this.placeholder=''" name="followup_date_time" id="followup_date_time" ng-model="lead.followup_date_time" ng-required="true"/>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.followup_date_time.$error.required">Please Select Followup Date and Time</p>
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="form-group" ng-if="lead.status==5 && (lead.is_upgrade==1 || lead.if_prospect==1 || lead.if_interest_demo==1)">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Department</label>
+                                                        <div class="col-sm-8">
+                                                         <select class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.lead_dept_id.$error.required}" name="lead_dept_id" id="lead_dept_id" ng-model="lead.lead_dept_id" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                          <option ng-repeat="dept in DEPT" ng-selected="dept.id==lead.lead_dept_id" value="{{dept.id}}" ng-if="dept.id!=8 && dept.id!=7">{{dept.label}}</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.lead_dept_id.$error.required">Please Select Department</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" ng-if="lead.status!='' && (lead.is_upgrade==1 || lead.if_prospect==1 || lead.if_interest_demo==1)">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Remarks</label>
+                                                        <div class="col-sm-8">
+                                                            <textarea class="form-control" ng-class="{'has-error':submitted && leadUpdateForm.status_remarks.$error.required}" placeholder="Enter Remarks" onblur="this.placeholder='Enter Remarks'" onfocus="this.placeholder=''" name="status_remarks" id="status_remarks" ng-model="lead.status_remarks" ng-required="true"></textarea>
+                                                           <p class="error" ng-show="submitted && leadUpdateForm.status_remarks.$error.required">Please Enter Remarks</p>
+                                                        </div>
+                                                    </div> 
+
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-5 col-sm-10">
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                            <button type="reset" class="btn btn-default" ng-click="closeThisDialog(0)">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>    

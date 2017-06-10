@@ -1,0 +1,53 @@
+<div class="widget-body no-padding">
+                                    <form>
+ <div class="table-responsive table-bordered ng-table-settings mar-top-20">
+    <div ng-show="isAllLeads">
+                <div class="pull-right" style="padding:5px 5px;"><button ng-click="getAssignBox()" class="btn btn-primary" ng-disabled="noAssign">Assign</button></div>
+                <div class="clear"></div>
+            <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped" show-filter="true" width="100%">
+                    <tr ng-repeat="lead in leads">
+                                <td title="'Sl.No'">{{$index+1}}.</td>
+                                <td data-title="'Lead ID'">{{ lead.lead_id }}</td>
+                                <td data-title="'Company name'">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Demo Date and Time'" align="center"><span ng-show="lead.if_interest_demo==1">{{ lead.demo_date_time | format | date:'dd-MMM-yyyy hh:mm a'}}</span></td>
+                                <td data-title="'Action'" align="center"><a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id,lead.status)"><i class="fa fa-eye"></i> View</a>
+                                <div class="checkbox" style="display:inline;">
+                                    <label>
+                                         <input type="checkbox" class="colored-success" ng-model="selected.leads[lead.id]" ng-click="getLeadids()">
+                                         <span class="text"></span>
+                                    </label>
+                                </div>
+                                </td>                                
+                    </tr>
+            </table>
+        </div>
+
+            <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped handcss" show-filter="true" width="100%" ng-show="isInboxLeads">
+                    <tr ng-repeat="lead in inboxleads">
+                                <td title="'Sl.No'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id)">{{$index+1}}.</td>
+                                <td data-title="'Lead ID'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id)">{{ lead.lead_id }}</td>
+                                <td data-title="'Company name'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id)">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id)">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id)">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Demo Date and Time'" align="center"><span ng-show="lead.if_interest_demo==1" ng-dblclick="getUpdateBox(lead.id,lead.lead_id)">{{ lead.demo_date_time | format | date:'dd-MMM-yyyy hh:mm a'}}</span></td>
+                                <td data-title="'Action'" align="center"><a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id,lead.status)"><i class="fa fa-eye"></i> View</a></td>
+                    </tr>
+            </table>
+
+            <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped handcss" show-filter="true" width="100%" ng-show="isFollowup">
+                    <tr ng-repeat="lead in followupleads">
+                                <td title="'Sl.No'" ng-dblclick="getFollowBox(lead.id)">{{$index+1}}.</td>
+                                <td data-title="'Lead ID'" ng-dblclick="getFollowBox(lead.id)">{{ lead.lead_id }}</td>
+                                <td data-title="'Company name'" ng-dblclick="getFollowBox(lead.id)">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'" ng-dblclick="getFollowBox(lead.id)">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'" ng-dblclick="getFollowBox(lead.id)">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Demo Date and Time'" align="center"><span ng-dblclick="getFollowBox(lead.id)">{{ lead.followup_date_time | format | date:'dd-MMM-yyyy hh:mm a'}}</span></td>
+                                <td data-title="'Action'" align="center"><a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id,lead.status)"><i class="fa fa-eye"></i> View</a></td>
+                    </tr>
+            </table>
+
+</div>       
+                                </form>
+                                </div>

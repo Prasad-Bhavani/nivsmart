@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="assignbox">
+                                              <h4>Short Lead Creation </h4>
+                                                <div class="assignbody">
+                                                <form class="form-horizontal" role="form" name="sortLeadForm" id="sortLeadForm" novalidate ng-submit="subSortForm(sortLeadForm.$valid)" ng-if="sroleid==14">
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Company Name</label>
+                                                        <div class="col-sm-8">
+                                                           <input class="form-control" ng-class="{'has-error':(submitted || sortLeadForm.company_name.$dirty) && sortLeadForm.company_name.$error.required}"  type="text" placeholder="Enter Company name" onblur="this.placeholder='Enter Company Name'" onfocus="this.placeholder=''" name="company_name" id="company_name" ng-model="shortlead.company_name" ng-required="true" ng-model-options="{ updateOn: 'blur' }" ng-focus="sortLeadForm.$invalid" ng-change="checkDupLead(shortlead.company_name,shortlead.contact_no_1)"/>
+                                                           <p class="error" ng-show="(submitted || sortLeadForm.company_name.$dirty) && sortLeadForm.company_name.$error.required">Please Enter Company Name</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Contact Number</label>
+                                                        <div class="col-sm-8">
+                                                           <input class="form-control" ng-class="{'has-error':(submitted || sortLeadForm.contact_no_1.$dirty) && sortLeadForm.contact_no_1.$error.required || (submitted || sortLeadForm.contact_no_1.$dirty) && sortLeadForm.contact_no_1.$error.pattern}"  type="text" placeholder="Enter Contact Number" onblur="this.placeholder='Enter Contact Number'" onfocus="this.placeholder=''" name="contact_no_1" id="contact_no_1" ng-model="shortlead.contact_no_1" ng-model-options="{ updateOn: 'blur' }" ng-required="true" ng-change="checkDupLead(shortlead.company_name,shortlead.contact_no_1)" ng-pattern="/^\d{10,11}$/" />
+                                                           <p class="error" ng-show="(submitted || sortLeadForm.contact_no_1.$dirty) && sortLeadForm.contact_no_1.$error.required">Please Enter Contact Number</p>
+                                                        <p ng-show="(submitted || sortLeadForm.contact_no_1.$dirty) && sortLeadForm.contact_no_1.$error.pattern" class="error">Please Enter Valid Number</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Contact Person </label>
+                                                        <div class="col-sm-8">
+                                                            <input class="form-control" ng-class="{'has-error':submitted && sortLeadForm.contact_person.$error.required}"  type="text" placeholder="Enter Contact Person" onblur="this.placeholder='Enter Contact Person'" onfocus="this.placeholder=''" name="contact_person" id="contact_person" ng-model="shortlead.contact_person" ng-required="true" ng-disabled="!isEntry"/>
+                                                           <p class="error" ng-show="submitted && sortLeadForm.contact_person.$error.required">Please Enter Contact Person Name</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Prospect Type</label>
+                                                        <div class="col-sm-8">
+                                                         <select class="form-control" ng-class="{'has-error':submitted && sortLeadForm.prospect_type_id.$error.required}" name="prospect_type_id" id="prospect_type_id" ng-model="shortlead.prospect_type_id" ng-change="getProspectDetails(shortlead.prospect_type_id)" ng-required="true" ng-disabled="!isEntry">
+                                                          <option value="" selected="selected">Select</option>
+                                                          <option ng-repeat="type in prospectTypes" value="{{type.id}}">{{type.type}}</option>
+                                                           </select>
+                                                           <p class="error" ng-show="submitted && sortLeadForm.prospect_type_id.$error.required">Please Select Prospect Type</p>
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="form-group">
+                                                        <label class="col-sm-4 control-label no-padding-right">Branch</label>
+                                                        <div class="col-sm-8">
+                                                        <select class="form-control" name="lead_branch_id" id="lead_branch_id" ng-model="shortlead.lead_branch_id" ng-required="true" ng-disabled="!isEntry">
+                                                            <option value="{{branch.id}}" ng-repeat="branch in branches" ng-selected="branch.id==shortlead.lead_branch_id">{{branch.branch_name}}</option>
+                                                        </select>
+                                                        </div>
+                                                      </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Remarks</label>
+                                                        <div class="col-sm-8">
+                                                            <textarea class="form-control" ng-class="{'has-error':submitted && sortLeadForm.remarks.$error.required}" placeholder="Enter Remarks" onblur="this.placeholder='Enter Remarks'" onfocus="this.placeholder=''" name="remarks" id="remarks" ng-model="shortlead.remarks" ng-required="true" ng-disabled="!isEntry"></textarea>
+                                                           <p class="error" ng-show="submitted && sortLeadForm.remarks.$error.required">Please Enter Remarks</p>
+                                                        </div>
+                                                    </div> 
+                                                    
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-4 col-sm-10">
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                            <button type="reset" class="btn btn-default" ng-click="closeThisDialog(0)">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <div ng-if="sroleid!=14" align="center"><h2>Temporarily unable to access Lead Creation<br /><b>Please Approch your Team Telecaller</b></h2></div><div class="form-group">
+                                                <div class="col-sm-offset-4 col-sm-10">
+                                                <button type="reset" class="btn btn-default" ng-click="closeThisDialog(0)">Close</button>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                    </div>
+</body>
+</html>

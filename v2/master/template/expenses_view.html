@@ -1,0 +1,136 @@
+ <form class="form-horizontal" role="form" name="updateExpenses" id="updateExpenses" novalidate ng-submit="subExpensesStatus(updateExpenses.$valid)">
+ <div class="assignbox"><h4>Token ID: {{data.tokenid}}</h4>
+    <p align="center"><b>Employee ID:</b> {{data.empid}} &nbsp; &nbsp; &nbsp; <b>Employee Name:</b> {{data.emp_name}} &nbsp; &nbsp; &nbsp; <b>Employee Branch:</b> {{data.branch_name}}</p>
+    <p align="center"><b>From Date: </b> {{data.from_date}} &nbsp; &nbsp; &nbsp;  <b>To Date: </b> {{data.to_date}}</p>
+    <div class="assignbody" ng-if="isView">
+    <table width="100%" border="1" rules="all" cellpadding="5" cellspacing="5" class="table table-bordered table-hover">
+    <thead>
+    <tr>
+    <th style="padding: 5px" rowspan="2">Sl.No</th>
+    <th style="padding: 5px" rowspan="2">Type</th>
+    <th style="padding: 5px" rowspan="2">Amount</th>
+    <th style="padding: 5px" rowspan="2">Remarks</th>
+    <th style="padding: 5px;text-align:center;" colspan="2">Admin</th>
+    <th style="padding: 5px;text-align:center;" colspan="2">Master</th>
+    </tr>
+    <tr ng-init="total=0;admin_total=0;master_total=0;">
+    <th style="padding: 5px">Status</th>
+    <th style="padding: 5px">Remarks</th>
+    <th style="padding: 5px">Status</th>
+    <th style="padding: 5px">Remarks</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="type in data.rows">
+    <td style="padding: 5px">{{$index+1}}</td>
+    <td style="padding: 5px"><span ng-repeat="typeid in types">{{typeid.id==type.type ? typeid.label : ''}}</span></td>
+    <td style="padding: 5px" ng-init="$parent.total = $parent.total + type.amount">{{type.amount}}</td>
+    <td style="padding: 5px">{{type.remarks}}</td>
+    <td style="padding: 5px" ng-init="$parent.admin_total = (type.admin_status=='Approved') ? ($parent.admin_total + type.amount) : ($parent.admin_total + 0)">{{type.admin_status}}</td>
+    <td style="padding: 5px">{{type.admin_remarks}}</td>
+    <td style="padding: 5px" ng-init="$parent.master_total = (type.master_status=='Approved') ? ($parent.master_total + type.amount) : ($parent.master_total + 0)">{{type.master_status}}</td>
+    <td style="padding: 5px">{{type.master_remarks}}</td>
+    </tr>
+    <tr bgcolor="#eee">
+    <td colspan="2"><b>Applied Amount</b></td>
+    <td>{{total}}</td>
+    <td></td>
+    <td colspan="2"><b>Approved Amount</b> {{admin_total}}</td>
+    <td colspan="2"><b>Approved Amount</b> {{master_total}}</td>
+    </tr>
+    </tbody>
+    </table>
+    <div ng-if="data.paid_status==1">
+    <br />
+    <table align="center" cellspacing="2" cellpadding="2" class="table table-bordered table-hover" style="width:auto !important">
+    <tr>
+    <th colspan="2" style="text-align: center !important;">Paid Information</th>
+    </tr>
+    <tr>
+        <td height="30px" style="padding: 2px 15px"><b>Actual Amount </b></td>
+        <td style="padding: 2px 15px">{{total}}</td>
+    </tr>
+    <tr>
+        <td height="30px" style="padding: 2px 15px"><b>Paid Amount </b></td>
+        <td style="padding: 2px 15px">{{master_total}}</td>
+    </tr>
+    <tr>
+        <td height="30px" style="padding: 2px 15px"><b>Payment </b></td>
+        <td style="padding: 2px 15px">{{data.paid_status==1 ? 'Paid' : 'Pending'}}</td>
+    </tr>
+    <tr>
+        <td style="padding: 2px 15px" height="30px" ng-if="data.paid_date_time!=''"><b>Paid Date</b></td>
+        <td style="padding: 2px 15px">{{data.paid_date_time}}</td>
+    </tr>
+    <tr>
+        <td style="padding: 2px 15px" height="30px"><b>Remarks</b> &nbsp;</td>
+        <td style="padding: 2px 15px">{{data.paid_remarks}}</td>
+    </tr>
+    </table>
+    </div>
+    <br />
+    <div class="ngdialog-buttons" ng-if="data.paid_status==1 || data.admin_status==''">
+       <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">Close</button>
+    </div>
+        <div class="form-group" ng-if="data.paid_status!=1 && data.admin_status!=''">
+           <div class="col-sm-offset-3 col-sm-3">
+            <button type="button" ng-click="getUpdate()" class="btn btn-primary" ng-if="data.paid_status==0 && data.admin_status!=''">Update</button>
+            <button type="reset" class="btn btn-default" ng-click="closeThisDialog(0)"><span ng-if="data.paid_status==0">Cancel</span></button>
+        </div>
+        </div>
+</div>
+
+    <div class="assignbody" ng-if="!isView">
+    <table width="100%" border="1" rules="all" cellpadding="5" cellspacing="5" class="table table-bordered table-hover">
+    <thead>
+    <tr ng-init="total=0;admin_total=0;master_total=0;">
+    <th style="padding: 5px" rowspan="2">Sl.No</th>
+    <th style="padding: 5px" rowspan="2">Type</th>
+    <th style="padding: 5px" rowspan="2">Amount</th>
+    <th style="padding: 5px" rowspan="2">Remarks</th>
+    <th style="padding: 5px;text-align:center;" colspan="2">Admin</th>
+    <th style="padding: 5px;text-align:center;" colspan="2">Master</th>
+    </tr>
+    <tr>
+    <th style="padding: 5px">Status</th>
+    <th style="padding: 5px">Remarks</th>
+    <th style="padding: 5px">Status</th>
+    <th style="padding: 5px">Remarks</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="type in data.rows">
+    <td style="padding: 5px">{{$index+1}}</td>
+    <td style="padding: 5px"><span ng-repeat="typeid in types">{{typeid.id==type.type ? typeid.label : ''}}</span></td>
+    <td style="padding: 5px" ng-init="$parent.total = $parent.total + type.amount">{{type.amount}}</td>
+    <td style="padding: 5px">{{type.remarks}}</td>
+    <td style="padding: 5px" ng-init="$parent.admin_total = (type.admin_status=='Approved') ? ($parent.admin_total + type.amount) : ($parent.admin_total + 0)">{{type.admin_status}}</td>
+    <td style="padding: 5px">{{type.admin_remarks}}</td>
+    <td style="padding: 5px" ng-init="pay.status[$index]=type.master_status!='Pending' ? type.master_status : ''; $parent.master_total = (pay.status[$index]=='Approved') ? ($parent.master_total + type.amount) : ($parent.master_total + 0)">
+        <select ng-class="{'has-error':submit && updateExpenses.status{{$index}}.$error.required}" ng-required="true" name="status{{$index}}" id="status{{$index}}" ng-model="pay.status[$index]" ng-init="pay.status[$index]=type.master_status!='Pending' ? type.master_status : ''" ng-change="getTotalAmount(data.rows)">
+            <option value="">Select</option>
+            <option>Approved</option>
+            <option>Reject</option>
+        </select>
+    </td>
+    <td style="padding: 5px"><textarea ng-class="{'has-error':submit && updateExpenses.remarks{{$index}}.$error.required}" ng-required="true" name="remarks{{$index}}" id="remarks{{$index}}" ng-model="pay.remarks[$index]" ng-init="pay.remarks[$index]=type.master_remarks!='Pending' ? type.master_remarks : ''">{{type.master_remarks}}</textarea></td>
+    </tr>
+    <tr bgcolor="#eee">
+    <td colspan="2"><b>Applied Amount</b></td>
+    <td>{{total}}</td>
+    <td></td>
+    <td colspan="2" ng-if="!admintotal"><b>Approved Amount</b> {{admin_total}}</td>
+    <td colspan="2"><b>Approved Amount</b> <span ng-if="!mastertotal">{{master_total}}</span> <span ng-if="mastertotal">{{master_totals}}</span></td>
+    </tr>
+    </tbody>
+    </table>
+    <br />
+
+        <div class="form-group">
+           <div class="col-sm-offset-3 col-sm-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-default" ng-click="closeThisDialog(0)">Cancel</button>
+        </div>
+        </div>
+</div>
+</form>

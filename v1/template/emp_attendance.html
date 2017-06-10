@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="assignbox">
+                                              <h4>Today Attendance </h4>
+                                                <div class="assignbody">
+                                                <form class="form-horizontal" role="form" name="attendanceForm" id="attendanceForm" novalidate ng-submit="subAttendanceForm(attendanceForm.$valid)">
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Today Date</label>
+                                                        <div class="col-sm-8">
+                                                           <input class="form-control" datetime-picker date-format="dd-MMM-yyyy" defaults="true"  type="text" placeholder="Select Date" onblur="this.placeholder='Select Date'" onfocus="this.placeholder=''" name="date" id="date" ng-model="attend.date" ng-required="true" ng-disabled="true"/>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Status</label>
+                                                        <div class="col-sm-8">
+                                                         <select class="form-control" ng-class="{'has-error':attendSubmitted && attendanceForm.status.$error.required}" name="status" id="status" ng-model="attend.status" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                          <option value="0">Absent</option>
+                                                          <option value="1">Present</option>
+                                                           </select>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group" ng-if="attend.status==0">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Absent Session</label>
+                                                        <div class="col-sm-8">
+                                                         <select class="form-control" ng-class="{'has-error':attendSubmitted && attendanceForm.absent_session.$error.required}" name="absent_session" id="absent_session" ng-model="attend.absent_session" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                          <option value="3">Full Day</option>
+                                                          <option value="1">Morning Session</option>
+                                                          <option value="2">Afternoon Session</option>
+                                                           </select>
+                                                    </div>
+                                                  </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-4 control-label no-padding-right">Remarks</label>
+                                                        <div class="col-sm-8">
+                                                            <textarea class="form-control" ng-class="{'has-error':attendSubmitted && attendanceForm.remarks.$error.required}" placeholder="Enter Remarks" onblur="this.placeholder='Enter Remarks'" onfocus="this.placeholder=''" name="remarks" id="remarks" ng-model="attend.remarks" ng-required="true"></textarea>
+                                                        </div>
+                                                    </div> 
+                                                    
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-4 col-sm-10">
+                                                            <button type="submit" class="btn btn-primary">Send</button>
+                                                            <input type="reset" name="close" class="btn btn-default" ng-click="closeThisDialog(0)" value="Cancel">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                    </div>
+</body>
+</html>

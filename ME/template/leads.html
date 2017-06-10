@@ -1,0 +1,22 @@
+<div class="widget-body no-padding">
+                                    <form>
+ <div class="table-responsive table-bordered ng-table-settings mar-top-20">
+                
+            <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped" show-filter="true" width="100%">
+                    <tr ng-repeat="lead in leads">
+                                <td title="'Sl.No'">{{$index+1}}.</td>
+                                <td data-title="'Lead ID'">{{ lead.lead_id }}</td>
+                                <td data-title="'Company Name'">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Lead Status'" align="center"><span ng-repeat="status in LEADSTATUS">{{status.id==lead.status ? status.label : ''}}</span></td>
+                                <td data-title="'Created Date and Time'"><span>{{ lead.created_date_time | format | date:'dd-MMM-yyyy hh:mm a'}}</span></td>
+                                <td data-title="'Action'" align="center"><a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id,lead.status)"><i class="fa fa-eye"></i> View</a></td>
+                    </tr>
+            </table>
+
+</div>
+
+                                    
+                                </form>
+                                </div>

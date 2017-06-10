@@ -1,0 +1,37 @@
+ <div class="assignbox"><h4>Token ID: {{data.tokenid}}</h4>
+    <div class="assignbody">
+    <p><b>From Date: </b> {{data.from_date}} &nbsp; &nbsp; &nbsp; <b>To Date: </b> {{data.to_date}}</p>
+    <table width="100%" border="1" rules="all" cellpadding="5" cellspacing="5">
+    <tr>
+    <th style="padding: 5px" rowspan="2">Sl.No</th>
+    <th style="padding: 5px" rowspan="2">Type</th>
+    <th style="padding: 5px" rowspan="2">Amount</th>
+    <th style="padding: 5px" rowspan="2">Remarks</th>
+    <th style="padding: 5px;text-align:center;" colspan="2">Admin</th>
+    <th style="padding: 5px;text-align:center;" colspan="2">Master</th>
+    <tr>
+    <th style="padding: 5px">Status</th>
+    <th style="padding: 5px">Remarks</th>
+    <th style="padding: 5px">Status</th>
+    <th style="padding: 5px">Remarks</th>
+    </tr>
+    <tr ng-repeat="type in data.rows" ng-if="type.type!=''">
+    <td style="padding: 5px">{{$index+1}}</td>
+    <td style="padding: 5px"><span ng-repeat="typeid in types">{{typeid.id==type.type ? typeid.label : ''}}</span></td>
+    <td style="padding: 5px">{{type.amount}}</td>
+    <td style="padding: 5px">{{type.remarks}}</td>
+    <td style="padding: 5px">{{type.admin_status}}</td>
+    <td style="padding: 5px">{{type.admin_remarks}}</td>
+    <td style="padding: 5px">{{type.master_status}}</td>
+    <td style="padding: 5px">{{type.master_remarks}}</td>
+    </tr>
+    </table>
+    <p><b>Payment: </b> &nbsp; {{data.paid_status==1 ? 'Paid' : 'Pending'}}</p>
+    <p ng-if="data.paid_date_time!=''"><b>Paid Date: </b> &nbsp;{{data.paid_date_time}}</p>
+    <p><b>Remarks: </b> &nbsp; {{data.paid_remarks}}</p>
+    <br />
+	<div class="ngdialog-buttons">
+		<button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">Close</button>
+</div>
+</div>
+</div>

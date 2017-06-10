@@ -1,0 +1,79 @@
+<!--<span style="margin-top: -5px;margin-bottom:5px;padding-right:15px;float:right;"><a href="#" class="btn btn-default btn-xs purple" ng-click="openSearch()" ng-if="!isSearch"> Search</a></span>
+                                                    <div style="margin:0px;padding:0px;max-width:100%" ng-if="isSearch">
+                                            <form class="form-horizontal" role="form" name="searchForm" id="searchForm" novalidate ng-submit="subSearchForm(searchForm.$valid)">
+                                                <div class="form-group col-sm-3">
+                                                <div class="form-group">
+                                                        <label  class="col-sm-3 control-label no-padding-right">Branch</label>
+                                                        <div class="col-sm-9">
+                                                        <select class="form-control" name="branch_id" id="branch_id" ng-model="search.lead_branch_id" ng-required="true">
+                                                            <option value="all">All</option>
+                                                            <option value="{{branch.id}}" ng-repeat="branch in branches" ng-selected="branch.id==search.lead_branch_id">{{branch.branch_name}}</option>
+                                                        </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               <div class="form-group col-sm-3">
+                                                <div class="form-group">
+                                                        <label  class="col-sm-3 control-label no-padding-right">EMPS</label>
+                                                        <div class="col-sm-9">
+                                                        <select class="form-control" name="branch_id" id="branch_id" ng-model="search.lead_branch_id" ng-required="true">
+                                                            <option value="all">All</option>
+                                                            <option value="{{branch.id}}" ng-repeat="branch in branches" ng-selected="branch.id==search.lead_branch_id">{{branch.branch_name}}</option>
+                                                        </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <div class="form-group col-sm-3 nobottom">
+                                                <div class="form-group nobottom">
+                                                        <label  class="col-sm-3 control-label no-padding-right">From</label>
+                                                        <div class="col-sm-9">
+                                                           <input class="form-control" datetime-picker date-format="dd-MMM-yyyy" defaults="true" ng-class="{'has-error':searched && searchForm.from_date.$error.required && search.date_type!='all'}"  type="text" placeholder="Select From Date" onblur="this.placeholder='Select From Date'" onfocus="this.placeholder=''" name="from_date" id="from_date" ng-model="search.from_date" ng-required="search.to_date"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-3 nobottom">
+                                                <div class="form-group nobottom">
+                                                        <label  class="col-sm-3 control-label no-padding-right">To</label>
+                                                        <div class="col-sm-9">
+                                                           <input class="form-control" datetime-picker date-format="dd-MMM-yyyy" defaults="true" ng-class="{'has-error':searched && searchForm.to_date.$error.required && search.date_type!='all'}"  type="text" placeholder="Select To Date" onblur="this.placeholder='Select To Date'" onfocus="this.placeholder=''" name="to_date" id="to_date" ng-model="search.to_date" ng-required="search.from_date" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-3 nobottom">
+                                                    <div class="col-sm-offset-2">
+                                                    <button type="submit" class="btn btn-primary">Search</button>
+                                                    <button type="button" class="btn btn-danger" ng-click="getLeads()">Cancel</button>
+                                                </div>
+                                                </div>
+                                                </form>
+                                                </div>
+                                                <div style="clear:both"></div>
+                                                </div>
+                                            </div>
+                                        </div>-->
+<div class="widget-body no-padding">
+                                    <form>
+ <div class="table-responsive table-bordered ng-table-settings mar-top-20">
+            <table ng-table="tableParams" class="table" show-filter="true">
+                    <tr ng-repeat="lead in $data" ng-if="$data.length>0">
+                                <td title="'Sl.No'" sortable="'sno'" width="2%">{{lead.sno}}.</td>
+                                <td data-title="'Lead ID'" sortable="'amc_lead_id'" filter="{'amc_lead_id':'text'}" width="15%">{{ lead.amc_lead_id }}</td>
+                                <td data-title="'Company name'" sortable="'company_name'" filter="{'company_name':'text'}" width="20%">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'" sortable="'contact_person'" filter="{'contact_person':'text'}" filter-data="statuslabel(contact_person)" width="20%">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'" sortable="'contact_no_1'" filter="{'contact_no_1':'text'}" width="10%">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Tally Serial No'" sortable="'tally_serial_no'" filter="{'tally_serial_no':'text'}" width="10%">{{lead.tally_serial_no}}</td>
+                                <td data-title="'AMC Interest'" sortable="'if_interest_amc'" filter="{'if_interest_amc':'text'}" width="10%">{{lead.if_interest_amc}}</td>
+                                <td data-title="'Created Date'" sortable="'created_date_time'" filter="{'created_date_time':'text'}" width="10%"><span>{{ lead.created_date_time }}</span></td>
+                                <td data-title="'Action'" align="center"><a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id)" width="2%"><i class="fa fa-eye"></i> View</a>
+                                </td>                                
+                    </tr>
+                    <tr ng-if="$data.length==0">
+                        <td align="center" colspan="9">No Leads Found...</td>
+                    </tr>
+            </table>
+
+</div>
+
+                                    
+                                </form>
+                                </div>

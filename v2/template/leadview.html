@@ -1,0 +1,259 @@
+                    <div>
+                       <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12"> 
+                        <div class="well with-header">
+                                <div class="header bordered-warning"><span  style="color: #2dc3e8;font-weight: bold;">Lead ID :</span> {{leadrec.lead_id}} <div class="pull-right"><span  style="color: #2dc3e8;font-weight: bold;">Last Updated Date & Time :</span> <span ng-if="leadrec.last_updated!='0000-00-00 00:00:00'">{{leadrec.last_updated | format | date:'dd-MMM-yyyy hh:mm a'}}</span> <span ng-if="leadrec.last_updated=='0000-00-00 00:00:00'">Not Updated</span></div><br /><span  style="color: #2dc3e8;font-weight: bold;">Created EMP ID :</span> <span ng-if="leadrec.created_emp_id=='nivsmart@admin.com'">Super Admin</span> <span ng-if="leadrec.created_emp_id!='nivsmart@admin.com'">{{leadrec.created_emp_id}}-{{leadrec.created_emp_name}}</span> <div class="pull-right"><span  style="color: #2dc3e8;font-weight: bold;">Created Date & Time :</span> {{leadrec.created_date_time | format | date:'dd-MMM-yyyy hh:mm a'}}</div> </div>
+                               <table class="table table-striped table-bordered table-hover">            
+                <tbody>
+                    <tr>
+                    <td width="200px"><b>Branch Name</b></td>
+                    <td>{{leadrec.branch_name}}</td>
+                    </tr>
+                    <tr>
+                    <td width="200px"><b>Company Name</b></td>
+                    <td>{{leadrec.company_name}}</td>
+                    </tr>
+                    <tr>
+                    <td width="200px"><b>Contact Person</b></td>
+                    <td>{{leadrec.contact_person}}</td>
+                    </tr>
+                    <tr>
+                    <td width="200px"><b>Contact Number</b></td>
+                    <td>{{leadrec.contact_no_1}}</td>
+                    </tr>
+                    <tr ng-if="leadrec.contact_no_2!=''">
+                    <td width="200px"><b>Alternate Number</b></td>
+                    <td>{{leadrec.contact_no_2}}</td>
+                    </tr>
+                    <tr>
+                    <td width="200px"><b>Address</b></td>
+                    <td>{{leadrec.addr}}</td>
+                    </tr>
+                    <tr>
+                    <td width="200px"><b>Nature of Business</b></td>
+                    <td><span ng-repeat="bus in business">{{bus.id==leadrec.nature_of_business_type ? bus.label : ''}}</span></td>
+                    </tr>
+                    <tr>
+                    <td width="200px"><b>Business Name</b></td>
+                    <td>{{leadrec.business_name}}</td>
+                    </tr>
+                    <tr>
+                    <td width="200px"><b>Tally Customer</b></td>
+                    <td>{{leadrec.if_tally_customer==1 ? 'Yes' : 'No'}}</td>
+                    </tr>
+                    <tr ng-show="leadrec.if_tally_customer=='0'">
+                    <td width="200px"><b>Any Other Software</b></td>
+                    <td>{{leadrec.any_other_software}}</td>
+                    </tr>
+                    <tr ng-show="leadrec.if_tally_customer=='1'">
+                    <td width="200px"><b>Existing Tally Number</b></td>
+                    <td>{{leadrec.existing_tally_no}}</td>
+                    </tr>
+                    <tr ng-show="leadrec.if_tally_customer=='1'">
+                    <td width="200px"><b>Tally Upgrade</b></td>
+                    <td>{{leadrec.is_upgrade==1 ? 'Yes' : 'No'}}</td>
+                    </tr>
+                    <tr ng-show="leadrec.is_upgrade=='1'">
+                    <td width="200px"><b>Upgrade Version</b></td>
+                    <td>{{leadrec.upgrade_version}}</td>
+                    </tr>
+                    <tr>
+                    <td width="200px"><b>Prospect for Tally</b></td>
+                    <td>{{leadrec.if_prospect==1 ? 'Yes' : 'No'}}</td>
+                    </tr>
+                    <tr ng-show="leadrec.if_prospect=='1'">
+                    <td width="200px"><b>Prospect type</b></td>
+                    <td><span ng-repeat="pros in prospecttype">{{pros.id==leadrec.prospect_type_id ? pros.label : ''}}</span></td>
+                    </tr>
+                    <tr ng-show="leadrec.if_prospect=='1'">
+                    <td width="200px"><b>Prospect Details</b></td>
+                    <td>{{leadrec.product_name}}</td>
+                    </tr>
+                    <tr>
+                    <td width="200px"><b>Referred</b></td>
+                    <td>{{leadrec.if_referred!=0 ? 'Yes' : 'No'}}</td>
+                    </tr>
+                    <tr ng-show="leadrec.if_referred!='0'">
+                    <td width="200px"><b>Referred Company Name</b></td>
+                    <td>{{leadrec.referred_company}}</td>
+                    </tr>
+                    <tr ng-show="leadrec.if_referred!='0'">
+                    <td width="200px"><b>Referred Contact Person</b></td>
+                    <td>{{leadrec.referred_person}}</td>
+                    </tr>
+                    <tr ng-show="leadrec.if_referred!='0'">
+                    <td width="200px"><b>Referred Contact Number</b></td>
+                    <td>{{leadrec.referred_contact_no}}</td>
+                    </tr>
+                    <tr>
+                    <td width="200px"><b>Interest for Demo</b></td>
+                    <td>{{leadrec.if_interest_demo==1 ? 'Yes' : 'No'}}</td>
+                    </tr>
+                    <tr ng-show="leadrec.if_interest_demo=='1'">
+                    <td width="200px"><b>Demo Date and Time</b></td>
+                    <td>{{ leadrec.demo_date_time | format | date:'dd-MMM-yyyy hh:mm a'}}</td>
+                    </tr>
+                    <tr>
+                    <td width="200px"><b>Remarks</b></td>
+                    <td>{{leadrec.remarks}}</td>
+                    </tr>
+               </tbody>
+            </table>
+                            </div>
+                        </div>  
+                        
+                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12"> 
+                        <div class="well with-header">
+                                <div class="header bordered-warning"><b>Working Process</b> <span style="float:right;margin-top:0px;margin-right:5px;"><a href="#" class="btn btn-default btn-xs purple" ng-click="goBack(page)"> Back</a></span></div>
+                               <div class="panel-group accordion" id="accordions">
+                                        <div class="panel panel-default" ng-if="leadrec.status=='0'">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordions" href="#collapseOnes" aria-expanded="true">
+                                                        <span class="acctitle"><span><b>Fresh Lead</b></span></span></a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOnes" class="panel-collapse collapse in" aria-expanded="true" style="">
+                                                <div class="panel-body border-red">
+                                                    Not in Process
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div ng-if="leadrec.status!='0'">
+                                        <div ng-if="monthlyfollowup!='0'">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordions" href="#collapseMonth" aria-expanded="false">
+                                                        <span class="acctitle"><b>Monthly Followup</b> </span></a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseMonth" class="panel-collapse collapse" aria-expanded="false">
+                                                <div class="">
+                                                    <div class="well nopad" style="max-height:400px;overflow-y:auto;">
+                                                        <div ng-repeat="monthly in monthlyfollowup">
+                                                        <h5 class="statushead"><b>{{monthly.emp_id}}-{{monthly.emp_name}}</b> <span style="float:right"><b>{{monthly.updated_date_time | format | date:'dd-MMM-yyyy hh:mm a' : ''}}</b></span></h5>
+                                                        <div class="statusbody">{{monthly.remarks}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                            <div ng-if="customersno!='0'">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordions" href="#collapseThrees" aria-expanded="false">
+                                                        <span class="acctitle"><b>Customer Business Details</b> </span></a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseThrees" class="panel-collapse collapse" aria-expanded="false">
+                                                <div class="">
+                                                    <div class="well">
+                                                        <div><h5 class="statushead"><b><span ng-repeat="bus in business">{{bus.id==customersno.business_id ? bus.label : ''}}</span></b></h5></div>
+                                                    <table width="100%" border="1" rules="all" border-spacing="5">
+                                                    <tr>
+                                                        <td style="padding:5px;"><b>Serial Number :</b></td>
+                                                        <td style="padding:5px;">{{customersno.serial_no}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding:5px;"><b>Activated Date :</b></td>
+                                                        <td style="padding:5px;">{{customersno.created_date_time | format | date:'dd-MMM-yyyy'}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding:5px;"><b>Invoicing :</b></td>
+                                                        <td style="padding:5px;"><span ng-repeat="invoice in domainbusiness.Invoicing" style="display: block">{{customersno.invoice.indexOf(invoice.id)>=0 ? invoice.label : ''}}</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding:5px;"><b>Inventory :</b></td>
+                                                        <td style="padding:5px;"><span ng-repeat="inventory in domainbusiness.Inventory" style="display: block">{{customersno.inventory.indexOf(inventory.id)>=0 ? inventory.label : ''}}</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding:5px;"><b>Return Computation and Filing :</b></td>
+                                                        <td style="padding:5px;"><span ng-repeat="filing in domainbusiness.Filing" style="display: block">{{customersno.filing.indexOf(filing.id)>=0 ? filing.label : ''}}</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding:5px;"><b>Diagonals :</b></td>
+                                                        <td style="padding:5px;"><span ng-repeat="diagonals in domainbusiness.Diagonals" style="display: block">{{customersno.diagonals.indexOf(diagonals.id)>=0 ? diagonals.label : ''}}</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding:5px;"><b>Lead Implementation :</b></td>
+                                                        <td style="padding:5px;">{{customersno.lead_implementation}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding:5px;"><b>Next Contact Date :</b></td>
+                                                        <td style="padding:5px;">{{customersno.next_contact_date | format | date:'dd-MMM-yyyy'}}</td>
+                                                    </tr>
+                                                </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                           <div ng-if="quotdetails!='0'">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordions" href="#collapseTwos" aria-expanded="false">
+                                                        <span class="acctitle"><b>Quotation</b> </span></a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwos" class="panel-collapse collapse" aria-expanded="false">
+                                                <div class="">
+                                                    <div class="well">
+                                                        <div><h5 class="statushead"><b title="EMPID: {{quotdetails.empid}} -
+ {{quotdetails.emp_name}}">EMPID: {{quotdetails.empid}} - {{quotdetails.emp_name | limitTo:16}}{{quotdetails.emp_name.length>16 ? '...' : ''}}</b> <span style="float:right"><b>Date {{quotdetails.created_date_time | format | date:'dd-MMM-yyyy' : ''}}</b></span></h5></div>
+                                                        <table width="100%" border="1" rules="all" border-spacing="5">
+                                                            <tr>
+                                                                <td style="padding:5px;"><b>Sl.No</b></td>
+                                                                <td style="padding:5px;"><b>Prospect Name</b></td>
+                                                                <td style="padding:5px;"><b>Rate</b></td>
+                                                                <td style="padding:5px;"><b>Quantity</b></td>
+                                                                <td style="padding:5px;"><b>Amount</b></td>
+                                                            </tr>
+                                                            <tr ng-repeat="quot in quotation">
+                                                                <td style="padding:5px;">{{$index+1}}.</td>
+                                                                <td style="padding:5px;">{{quot.prospect_name}}</td>
+                                                                <td style="padding:5px;" align="right">{{quot.rate}}</td>
+                                                                <td style="padding:5px;" align="right">{{quot.quantity}}</td>
+                                                                <td style="padding:5px;" align="right">{{quot.rate * quot.quantity}}</td>
+                                                            </tr>
+                                                            <!--<tr>
+                                                                <td colspan="4" align="right"><b>Total</b></td>
+                                                                <td>{{quotation.total}}</td>
+                                                            </tr>-->
+                                                        </table>
+                                                        <p><b>Descripton: </b> {{quotdetails.des}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div ng-if="leadrec.status!='0'">
+                                            <div class="panel-heading">
+                                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordions" href="#collapseOnes" aria-expanded="true">
+                                                        <span class="acctitle"><span><b>Last Update</b></span></span></a>
+                                            </div>
+                                            <div id="collapseOnes" class="panel-collapse collapse in" aria-expanded="true">
+                                                <div class="panel-body border-red">
+                                                    <!--<div class="well nopad" ng-if="leadrec.is_present!=0">
+                                                        <h5 class="statushead"><b>{{leadrec.is_present}}-{{leadrec.emp_name}}</b></h5>
+                                                        <div class="statusbody">{{leadrec.is_remarks}}</div>
+                                                    </div>-->
+
+                                                    <div class="well nopad">
+                                                        <h5 class="statushead"><b title="{{leadrec.emp_id}} - {{leadrec.emp_name}}">{{leadrec.emp_id}}-{{leadrec.emp_name | limitTo:16}}{{leadrec.emp_name.length>16 ? '...' : ''}}</b> <span style="float:right"><b>{{leadrec.is_status==1 ? leadrec.is_updated_date_time : leadrec.is_taken_date_time | format | date:'dd-MMM-yyyy hh:mm a' : ''}}</b></span></h5>
+                                                        <div class="statusbody" ng-if="leadrec.is_status==1">{{leadrec.is_remarks}}</div>
+                                                        <div class="statusbody" ng-if="leadrec.is_status==0"> Lead is Taken and In-progress...</div>
+                                                    </div>
+                                                    <div class="well nopad" style="max-height:400px;overflow-y:auto;">
+                                                        <div ng-repeat="leadhis in leadhistory">
+                                                        <h5 class="statushead"><b title="{{leadhis.emp_id}} - {{leadhis.emp_name}}">{{leadhis.emp_id}}-{{leadhis.emp_name | limitTo:16}}{{leadhis.emp_name.length>16 ? '...' : ''}}</b> <span style="float:right"><b>{{leadhis.is_updated_date_time | format | date:'dd-MMM-yyyy hh:mm a' : ''}}</b></span></h5>
+                                                        <div class="statusbody">{{leadhis.is_remarks}}</div>
+                                                    </div>
+                                                       <h5 class="statusbody" align="center" ng-click="getViewMoreHistory(leadrec.id)" style="cursor: pointer" ng-if="historylen>count">view more</h5>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                           </div>
+                        </div>
+                    </div>

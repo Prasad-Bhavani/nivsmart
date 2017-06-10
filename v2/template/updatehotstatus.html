@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <div class="widget-body" ng-show="isLeads">
+                                            <div class="widget-main ">
+                                                <div class="tabbable">
+                                                    <ul class="nav nav-tabs tabs-flat" id="myTab11">
+                                                        <li class="{{followupLead==true ? 'active':''}}">
+                                                            <a data-toggle="tab" href="#leadupdate" aria-expanded="{{followupLead==true ? true:false}}">
+                                                               Lead Update
+                                                            </a>
+                                                        </li>
+                                                        <li class="active" ng-if="!followupLead">
+                                                            <a data-toggle="tab" href="#statusupdate" aria-expanded="true">
+                                                                Status Update
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="tab-content tabs-flat">
+                                                        <div id="leadupdate" class="tab-pane {{followupLead==true ? 'active':''}}">
+                                                            <div ng-include="'template/updatelead.html'"></div>
+                                                        </div>
+
+                                                        <div id="statusupdate" class="tab-pane active" ng-if="!followupLead">
+
+                                                        <div class="row">
+                                                        <div class="col-sm-12">
+                                                        <div class="col-sm-6"><b>Lead ID:</b> {{lead.lead_id}}</div>
+                                                        <div class="col-sm-6"><b>Company Name:</b> {{lead.company_name}}</div>
+                                                        <div class="col-sm-6"><b>Contact Number:</b> {{lead.contact_no_1}}</div>
+                                                        <div class="col-sm-6"><b>Person Name:</b> {{lead.contact_person}}</div>
+                                                        </div>
+                                                            <form class="form-horizontal" role="form" method="post" name="leadStatus" id="leadStatus" novalidate ng-submit="subHotLeadStatus(leadStatus.$valid)">
+                                                            <input type="hidden" name="id" id="id" ng-model="lead.id">
+
+                                                     <div class="form-group">
+                                                        <label  class="col-sm-3 control-label no-padding-right">Lead Status</label>
+                                                        <div class="col-sm-9">
+                                                         <select class="form-control" ng-class="{'has-error':statusSubmitted && leadStatus.status.$error.required}" name="status" id="status" ng-model="leadUpdateStatus.status" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                          <option value="2">Droped</option>
+                                                          <option value="3">Followup</option>
+                                                          <option value="5" ng-if="lead.shortlead!=0">Moved</option>
+                                                           </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group" ng-if="leadUpdateStatus.status==3">
+                                                        <label  class="col-sm-3 control-label no-padding-right">Followup Date and Time</label>
+                                                        <div class="col-sm-9">
+                                                           <input class="form-control" datetime-picker date-format="dd-MMM-yyyy hh:mm a" defaults="true" ng-class="{'has-error':statusSubmitted && leadStatus.followup_date_time.$error.required}"  type="text" placeholder="Select Followup Date and Time" onblur="this.placeholder='Select Followup Date and Time'" onfocus="this.placeholder=''" name="followup_date_time" id="followup_date_time" ng-model="leadUpdateStatus.followup_date_time" ng-required="true"/>
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="form-group" ng-if="leadUpdateStatus.status==5">
+                                                        <label  class="col-sm-3 control-label no-padding-right">Department</label>
+                                                        <div class="col-sm-9">
+                                                         <select class="form-control" ng-class="{'has-error':statusSubmitted && leadStatus.lead_dept_id.$error.required}" name="lead_dept_id" id="lead_dept_id" ng-model="leadUpdateStatus.lead_dept_id" ng-required="true">
+                                                          <option value="" selected="selected">Select</option>
+                                                          <option ng-repeat="dept in DEPT" ng-selected="dept.id==lead.lead_dept_id" value="{{dept.id}}" ng-if="dept.id==4 || dept.id==5 || dept.id==6">{{dept.label}}</option>
+                                                           </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label  class="col-sm-3 control-label">Remarks</label>
+                                                        <div class="col-sm-9">
+                                                            <textarea class="form-control" ng-class="{'has-error':statusSubmitted && leadStatus.is_remarks.$error.required}" placeholder="Enter Remarks" onblur="this.placeholder='Enter Remarks'" onfocus="this.placeholder=''" name="is_remarks" id="is_remarks" ng-model="leadUpdateStatus.is_remarks" ng-required="true"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-group" style="margin-top: 20px;">
+                                                        <div class="col-sm-offset-3 col-sm-12">
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                            <button type="reset" class="btn btn-default" ng-click="closeThisDialog(0)">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                            </form>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                    </div>
+</body>
+</html>

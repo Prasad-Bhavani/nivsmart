@@ -1,0 +1,21 @@
+<form method="post" name="loginForm" id="loginForm">
+        <div align="center" style="font-size:12px" id="msg"><?php if(isset($_SESSION['msg'])) echo $_SESSION['msg']; unset($_SESSION['msg']); ?></div>
+        <div class="loginbox bg-white">
+            <div class="loginbox-title">SIGN IN</div>
+            <div class="loginbox-textbox">
+                <input type="text" class="form-control" placeholder="Enter User ID" onblur="this.placeholder='Enter User ID'" onfocus="this.placeholder=''" name="userid" id="userid" value="<?php if(isset($_POST['userid'])) echo $_POST['userid']; ?>" />
+            </div>
+            <div class="loginbox-textbox">
+                <input type="password" class="form-control"  placeholder="Enter Password" onblur="this.placeholder='Enter Password'" onfocus="this.placeholder=''" name="password" id="password" />
+                <?php if(isset($error)) echo '<span class="error" id="error">'.$error.'</span>';?>
+            </div>
+            <div class="loginbox-forgot">
+                <a href="#">Forgot Password?</a>
+            </div>
+            <div class="loginbox-submit">
+                <input type="submit" class="btn btn-primary btn-block" name="login" id="login" value="Login">
+            </div>
+           
+        </div>
+      <input type="hidden" name="submit_login" id="submit_login" value="">
+  </form>

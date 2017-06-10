@@ -1,0 +1,121 @@
+                <!-- Page Body -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-xs-12">     
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="widget">
+                                        <div class="widget-header bordered-bottom bordered-blue">
+                                            <span class="widget-caption">Team Target</span>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div>
+                                                <form role="form" method="post" novalidate name="generateForm" id="generateForm" ng-submit="subGenerate(generateForm.$valid)" class="form-horizontal" autocomplete="off">
+
+                                                        <div class="form-group">
+                                                        <label class="col-lg-4 col-md-4 col-sm-12 control-label" for="monthstart">Starting Month-Year</label>
+                                                        <div class="col-lg-2 col-md-2 col-sm-12">
+                                                        <select class="form-control" ng-class="{'has-error':generateSubmit && generateForm.monthstart.$error.required}" name="monthstart" id="monthstart" ng-model="target.monthstart" ng-required="true">
+                                                        <option value="">Month</option>
+                                                        <option value="{{$index+1}}" ng-repeat="month in months">{{month}}</option>
+                                                        </select>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-2 col-sm-12">
+                                                        <select class="form-control" ng-class="{'has-error':generateSubmit && generateForm.yearstart.$error.required}" name="yearstart" id="yearstart" ng-model="target.yearstart" ng-required="true">
+                                                        <option value="">Year</option>
+                                                        <option ng-repeat="year in years">{{year}}</option>
+                                                        </select>
+                                                        <p ng-show="generateSubmit && generateForm.yearstart.$error.required" class="error">Select Starting Year</p>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-2 col-sm-12">
+                                                            <input type="text" class="form-control" name="period" id="period" ng-class="{'has-error':(generateSubmit && generateForm.period.$error.required) || (generateSubmit && generateForm.period.$error.pattern)}" ng-model="target.period" placeholder="Enter Period" onblur="this.placeholder='Enter Period'" onfocus="this.placeholder=''" ng-required="true" ng-pattern="/^[1-9]$/" />
+                                                        <p ng-show="generateSubmit && generateForm.period.$error.required" class="error">Enter Period</p>
+                                                        </div>
+                                                    
+                                                    <div class="col-lg-offset-4 col-md-offset-4">
+                                                    <button type="submit" name="generate" id="generate" class="btn btn-blue">Generate</button>
+                                                    </div>
+                                                    </div>
+                                                    </form>
+
+                                            <form role="form" method="post" novalidate name="targetForm" id="targetForm" ng-submit="subTargetForm(targetForm.$valid)" class="form-horizontal" autocomplete="off">
+                                                    <table align="center">
+                                                    <tr ng-repeat="list in targetslist" ng-if="targetslist.length>0">
+                                                        <th style="padding:2px 4px">{{list.team}}</th>
+
+                                                        <td style="padding:2px 4px" ng-repeat="target in list.target" width="90px">
+                                                        <b>{{target.mon}}</b><br/>
+                                                            <input type="text" class="form-control" name="target_{{list.team_id}}_{{$index+1}}" id="target_{{list.team_id}}_{{$index+1}}" ng-class="{'has-error':(targetSubmit && targetForm.target_{{list.team_id}}_{{$index+1}}.$error.required) || (targetSubmit && targetForm.target_{{list.team_id}}_{{$index+1}}.$error.pattern) || (targetSubmit && targetForm.target_{{list.team_id}}_{{$index+1}}.$error.parse)}" ng-model="target.target" placeholder="Target" onblur="this.placeholder='Target'" onfocus="this.placeholder=''" ng-change="getTotal()" only-digits ng-required="true" ng-pattern="/^[1-9][0-9]*$/" />
+                                                            </td>
+
+                                                        <td style="padding:2px 4px" class="col-lg-2 col-md-2 col-sm-12" align="right"><b>Total Target</b><br/>
+                                                        {{list.total_target}}
+                                                            </td>
+                                                    </tr>
+                                                    </table>
+
+                                                   <div class="col-lg-offset-5 col-md-offset-5" ng-if="targetslist.length>0">
+                                                    <button type="submit" name="sub" id="sub" class="btn btn-blue">{{target.id ? 'Update' : 'Save'}}</button> <button type="reset" id="resetbtn" name="resetbtn" class="btn btn-red" ng-click="resetForm()">{{target.id ? 'Cancel' : 'Clear'}}</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                       
+
+                    </div>
+
+                   
+                   <br />
+
+        <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="widget">
+                                <div class="widget-header bordered-bottom bordered-yellow">
+                                    <span class="widget-caption">Targets</span>
+                                   
+                                </div>
+                                <div class="widget-body no-padding">
+                                    <table ng-table="tableParams" class="table" show-filter="true">
+                                        <tr ng-repeat="teamtarget in $data" ng-if="$data.length>0">
+                                            <td title="'Sl.No'" sortable="'sno'">{{teamtarget.sno}}.</td>
+                                            <td title="'Target Period'" sortable="'target_period'" filter="{'target_period':'text'}">{{teamtarget.target_period}}</td>
+                                            <td title="'Name'" sortable="'name'" filter="{'name':'text'}">{{teamtarget.name}}</td>
+                                            <td title="'Monthly Targets'" sortable="'months'" filter="{'months':'text'}">
+                                            <div style="display:table;border:1px solid white;" width="100%" class="none">
+                                            <div style="background-color: lightgray;display: table-row;border:1px solid white;">
+                                            <div style="padding:5px;display: table-cell;border:1px solid white;font-weight:bold">Month</div>
+                                            <div style="padding:5px;display: table-cell;border:1px solid white;font-weight:bold">Target</div>
+                                            <div style="padding:5px;display: table-cell;border:1px solid white;font-weight:bold">Reached</div>
+                                            </div>
+                                            <div style="display: table-row;border:1px solid white;" ng-repeat="mon in teamtarget.months.split('*')" class="{{(teamtarget.targets.split('*')[$index]-0) <= (teamtarget.reached_targets.split('*')[$index]-0) ? 'btn-success' : 'btn-danger'}}">
+                                            <div style="padding: 5px !important;display: table-cell;border:1px solid white;width:150px">{{mon}}</div>
+                                            <div align="right" style="padding: 5px !important;display: table-cell;border:1px solid white;width:150px">{{teamtarget.targets.split('*')[$index]}}</div>
+                                            <div align="right" style="padding: 5px !important;display: table-cell;border:1px solid white;width:150px">{{teamtarget.reached_targets.split('*')[$index]}}</div>
+                                            </div>
+                                            <div style="display: table-row;border:5px solid white !important;" class="{{(teamtarget.total_target-0) <= (teamtarget.reached_target-0) ? 'btn-success' : 'btn-danger'}}">
+                                            <div style="padding: 5px !important;display: table-cell;border:1px solid white !important"><b>Total</b></div>
+                                            <div style="padding: 5px !important;display: table-cell;border:1px solid white !important" align="right">{{teamtarget.total_target}}</div>
+                                            <div style="padding: 5px !important;display: table-cell;border:1px solid white !important" align="right">{{teamtarget.reached_target}}</div>
+                                            </div>
+                                            </div>
+                                            </td>
+                                            <td title="'Treasury'" sortable="'sales_target'" filter="{'sales_target':'text'}" style="text-align:center">{{teamtarget.sales_target}}</td>
+                                            <td title="'Created'" sortable="'created_date_time'" filter="{'created_date_time':'text'}" style="text-align:center;width:100px">{{teamtarget.created_date_time}}</td>
+                                            <td title="'Updated'" sortable="'updated_date_time'" filter="{'updated_date_time':'text'}" style="text-align:center;width:100px">{{teamtarget.updated_date_time}}</td>
+                                            <td title="'Action'" style="text-align:center">
+                                                <a href="#" class="btn btn-success btn-xs" ng-click="getTeamTargets(teamtarget.id)" ng-attr-title="Edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                        </tr>
+                                        <tr ng-if="$data.length==0">
+                                            <td colspan="8" align="center">No Records Found...</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Page Body -->

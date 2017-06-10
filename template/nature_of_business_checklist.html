@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <div class="assignbox"><h4>Business Name: <span ng-repeat="bus in business" ng-if="bus.id==busid">{{bus.label}}</span> </h4>
+                                                <div class="assignbody">
+                                                <form class="form-horizontal" role="form" name="checkList" id="checkList" novalidate ng-submit="subCheckList(checkList.$valid)">
+
+                                            <div class="form-group">
+                                              <label  class="col-sm-3 control-label">Invoicing</label>
+                                                <div class="col-sm-9">
+                                                   <div class="checkbox col-sm-4" ng-repeat="invo in domainbusiness.Invoicing" style="display:inline">
+                                                      <label>
+                                                        <input type="checkbox" class="colored-success" ng-model="selected.invoice[invo.id]" ng-value="{{invo.id}}" ng-click="checkInvoiceCount()" ng-checked="checklist.invoice.indexOf(invo.id)>=0">
+                                                        <span class="text">{{invo.label}}</span>
+                                                      </label>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <p ng-show="checksubmitted && invoiceCount==0" class="error">Please Select At least one</p>
+                                                </div>
+                                              </div>
+
+                                            <div class="form-group">
+                                              <label  class="col-sm-3 control-label">Inventory</label>
+                                                <div class="col-sm-9">
+                                                   <div class="checkbox col-sm-4" ng-repeat="invent in domainbusiness.Inventory" style="display:inline">
+                                                      <label>
+                                                        <input type="checkbox" class="colored-success" ng-model="selected.inventory[invent.id]" ng-value="{{invent.id}}" ng-click="checkInventoryCount()" ng-checked="checklist.inventory.indexOf(invent.id)>=0">
+                                                        <span class="text">{{invent.label}} </span>
+                                                      </label>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <p ng-show="checksubmitted && inventoryCount==0" class="error">Please Select At least one</p>
+                                                </div>
+                                              </div>
+
+                                            <div class="form-group">
+                                              <label  class="col-sm-3 control-label">Return Computation and Filing</label>
+                                                <div class="col-sm-9">
+                                                   <div class="checkbox col-sm-4" ng-repeat="fill in domainbusiness.Filling" style="display:inline">
+                                                      <label>
+                                                        <input type="checkbox" class="colored-success" ng-model="selected.filling[fill.id]" ng-value="{{fill.id}}" ng-click="checkFillingCount()" ng-checked="checklist.filling.indexOf(fill.id)>=0">
+                                                        <span class="text">{{fill.label}}</span>
+                                                      </label>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <p ng-show="checksubmitted && fillingCount==0" class="error">Please Select At least one</p>
+                                                </div>
+                                              </div>
+
+                                            <div class="form-group">
+                                              <label  class="col-sm-3 control-label">Diagonals</label>
+                                                <div class="col-sm-9">
+                                                   <div class="checkbox col-sm-4" ng-repeat="dia in domainbusiness.Diagonals" style="display:inline">
+                                                      <label>
+                                                        <input type="checkbox" class="colored-success" ng-model="selected.diagonals[dia.id]" ng-value="{{dia.id}}" ng-click="checkDiagonalsCount(selected.diag[dia.id])" ng-checked="checklist.diagonals.indexOf(dia.id)>=0">
+                                                        <span class="text">{{dia.label}}</span>
+                                                      </label>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <p ng-show="checksubmitted && diagonalsCount==0" class="error">Please Select At least one</p>
+                                                </div>
+                                              </div>
+ 
+                                              <div class="form-group">
+                                                <label class="col-sm-3 control-label no-padding-right">Implementation Leads Generated</label>
+                                              	  <div class="col-sm-9">
+                                                    <textarea class="form-control" ng-class="{'has-error':checksubmitted && checkList.lead_implementation.$error.required}" placeholder="Enter Implementation Lead Generated" onblur="this.placeholder='Enter Implementation Lead Generated'" onfocus="this.placeholder=''" name="lead_implementation" id="lead_implementation" ng-model="checklist.lead_implementation" ng-required="true"></textarea>
+                                                </div>
+                                        	  </div>
+
+                                              <div class="form-group">
+                                                <label class="col-sm-3 control-label no-padding-right">Next Contact Date</label>
+                                              	  <div class="col-sm-9">
+                                                    <input class="form-control" datetime-picker date-format="dd-MMM-yyyy" defaults="true" ng-class="{'has-error':checksubmitted && checkList.next_contact_date.$error.required}"  type="text" placeholder="Select Demo Date and Time" onblur="this.placeholder='Select Demo Date and Time'" onfocus="this.placeholder=''" name="next_contact_date" id="next_contact_date" ng-model="checklist.next_contact_date" ng-required="true"/>
+                                                </div>
+                                        	  </div>
+
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-3 col-sm-10">
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                            <input type="hidden" class="btn btn-default" ng-click="closeThisDialog(0)" name="close" id="close" value="Close">
+                                                            <input type="button" class="btn btn-default" ng-click="checkCheckList()" value="Close">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            </div>
+                                    </div>
+                    </div>
+                                            </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<div class="widget-body no-padding">
+<form>
+ <div class="table-responsive table-bordered ng-table-settings mar-top-20">
+            <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped" show-filter="true" width="100%" ng-show="isColdLeads">
+                    <tr ng-repeat="lead in coldleads">
+                                <td title="'Sl.No'">{{$index+1}}.</td>
+                                <td data-title="'Lead ID'">{{ lead.lead_id }}</td>
+                                <td data-title="'Company name'">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Last Updated Date and Time'" align="center"><span ng-if="lead.is_status==1">{{ lead.is_updated_date_time | format | date:'dd-MMM-yyyy hh:mm a'}}</span></td>
+                                <td data-title="'Remarks'">{{ lead.is_remarks }}</td>
+                                <td data-title="'Action'" align="center">
+                                    <a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id)"><i class="fa fa-eye"></i> View</a> 
+                                    <a href="#" class="btn btn-default btn-xs purple" ng-click="moveToColdInbox(lead.id)"><i class="fa fa-mail-reply"></i> Move</a> 
+                                </td>
+                    </tr>
+            </table>
+
+            <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped handcss" show-filter="true" width="100%" ng-show="isColdInbox">
+                    <tr ng-repeat="lead in coldinboxleads">
+                                <td title="'Sl.No'" ng-dblclick="getColdUpdateBox(lead.id,lead.pid)">{{$index+1}}.</td>
+                                <td data-title="'Lead ID'" ng-dblclick="getColdUpdateBox(lead.id,lead.pid)">{{ lead.lead_id }}</td>
+                                <td data-title="'Company name'" ng-dblclick="getColdUpdateBox(lead.id,lead.pid)">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'" ng-dblclick="getColdUpdateBox(lead.id,lead.pid)">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'" ng-dblclick="getColdUpdateBox(lead.id,lead.pid)">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Last Updated Date and Time'" align="center" ng-dblclick="getColdUpdateBox(lead.id,lead.pid)"><span ng-if="lead.is_status==1">{{ lead.is_updated_date_time | format | date:'dd-MMM-yyyy hh:mm a'}}</span></td>
+                                <td data-title="'Remarks'" ng-dblclick="getColdUpdateBox(lead.id)">{{ lead.is_remarks }}</td>
+                                <!--<td data-title="'Taken Date and Time'" align="center" ng-dblclick="getUpdateBox(lead.id)"><span>{{ lead.is_taken_date_time | format | date:'dd-MMM-yyyy hh:mm a'}}</span></td>-->
+                                <td data-title="'Action'" align="center">
+                                    <a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id)"><i class="fa fa-eye"></i> View</a> 
+                                </td>
+                    </tr>
+            </table>
+</div>
+</form>
+</div>

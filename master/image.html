@@ -1,0 +1,44 @@
+<html>
+   
+   <head>
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+   </head>
+   
+   <body ng-app = "myApp">
+	
+      <div ng-controller = "myCtrl">
+      <form name="form">
+    <input type="file" ng-model="document" name="document" valid-file required>
+    <input type="submit" value="{{ !form.$valid && 'invalid' || 'valid' }}">
+</form>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<img ng-src="{{form.document.$modelValue}}"/>
+{{form.document.$modelValue}}
+      </div>
+      
+      <script>
+         var myApp = angular.module('myApp', []);
+myApp.directive('validFile', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, el, attrs, ngModel) {
+            ngModel.$render = function () {
+                ngModel.$setViewValue(el.val());
+            };
+
+            el.bind('change', function () {
+                scope.$apply(function () {
+                    ngModel.$render();
+                });
+            });
+        }
+    };
+});
+         myApp.controller('myCtrl', ['$scope', function($scope, fileUpload){
+            
+         }]);
+
+      </script>
+      
+   </body>
+</html>

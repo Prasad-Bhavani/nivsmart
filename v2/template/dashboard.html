@@ -1,0 +1,42 @@
+    <div class="row" ng-controller="profileCtrl">
+                                <div class="col-lg-12">
+                                    <div class="widget-body" style="background-color:white;padding:35px 35px;margin: 15px;">
+<div class="col-sm-6 col-sm-offset-4">
+<div class="ribbon btn-success"><strong class="ribbon-content"><h1>WELCOME TO NIV SMART</h1></strong></div>
+</div>
+
+                                        <div style="font-weight:bold;font-size:20px;text-align:center;"><br/><br/><br/><span style="color: blue">{{targetPeriod}}</span></div>
+                                        <div class="row">
+                                        <div class="col-sm-4" ng-repeat="teamtarget in teamsTargets">
+                                            <h3 title="Team Name" class="{{(teamtarget.total_target-0) <= (teamtarget.reached_target-0) ? 'btn-success' : 'btn-danger'}}" align="center" style="margin-bottom:0px;padding:5px 0px;"><b>{{teamtarget.name}}</b></h3>
+                                            <div filter="{'months':'text'}">
+                                            <table width="100%" style="border:1px solid white;">
+                                            <tr style="background-color: black;color:white;border:1px solid white;">
+                                            <th colspan="2" style="text-align: center;padding: 5px 0px" align="center">Treasury : {{teamtarget.sales_target}}</th>
+                                            <th colspan="2" style="text-align: center;padding: 5px 0px" align="center">Bonus : {{teamtarget.bonus}}</th>
+                                            </tr>
+                                            <tr style="background-color: lightgray;border:1px solid white;">
+                                            <th style="padding:10px;border:1px solid white;">Month</th>
+                                            <th style="padding:10px;text-align: center;border:1px solid white;">Target</th>
+                                            <th style="padding:10px;text-align: center;border:1px solid white;">Reached</th>
+                                            <th style="padding:10px;text-align: center;border:1px solid white;">Pending</th>
+                                            </tr>
+                                            <tr ng-repeat="mon in teamtarget.months.split('*')" class="{{(teamtarget.targets.split('*')[$index]-0) <= (teamtarget.reached_targets.split('*')[$index]-0) ? 'btn-success' : 'btn-danger'}}" style="border:1px solid white;">
+                                            <td style="padding: 10px !important;border:1px solid white;">{{mon}}</td>
+                                            <td align="right" style="padding: 10px !important;border:1px solid white;">{{teamtarget.targets.split('*')[$index]}}</td>
+                                            <td align="right" style="padding: 10px !important;border:1px solid white;">{{teamtarget.reached_targets.split('*')[$index]}}</td>
+                                            <td align="right" ng-init="pending=(teamtarget.targets.split('*')[$index]-0)-(teamtarget.reached_targets.split('*')[$index]-0)" style="padding: 10px !important;border:1px solid white;">{{pending>=0 ? pending : 0}}</td>
+                                            </tr>
+                                            <tr class="{{(teamtarget.total_target-0) <= (teamtarget.reached_target-0) ? 'btn-success' : 'btn-danger'}}" style="border:5px solid white !important;">
+                                            <th style="padding: 10px !important;border:1px solid white;"><b>Total</b></th>
+                                            <td style="padding: 10px !important;border:1px solid white;" align="right">{{teamtarget.total_target}}</td>
+                                            <td style="padding: 10px !important;border:1px solid white;" align="right">{{teamtarget.reached_target}}</td>
+                                            <td align="right" ng-init="totalPending=(teamtarget.total_target-0)-(teamtarget.reached_target-0)" style="padding: 10px !important;border:1px solid white;">{{totalPending>=0 ? totalPending : 0}}</td>
+                                            </tr>
+                                            </table>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>

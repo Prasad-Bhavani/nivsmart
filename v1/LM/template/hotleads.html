@@ -1,0 +1,56 @@
+<div class="widget-body no-padding">
+                                    <form>
+ <div class="table-responsive table-bordered ng-table-settings mar-top-20">
+    <div ng-show="isHotLeads">
+            <table ng-table="tableParams" class="table" show-filter="true">
+                    <tr ng-repeat="lead in $data" ng-if="$data.length>0">
+                                <td title="'Sl.No'" sortable="'sno'">{{lead.sno}}.</td>
+                                <td data-title="'Lead ID'" sortable="'lead_id'" filter="{'lead_id':'text'}">{{ lead.lead_id }}</td>
+                                <td data-title="'Company name'" sortable="'company_name'" filter="{'company_name':'text'}">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'" sortable="'contact_person'" filter="{'contact_person':'text'}">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'" sortable="'contact_no_1'" filter="{'contact_no_1':'text'}">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Demo Date and Time'" align="center" sortable="'demo_date_time'" filter="{'demo_date_time':'text'}">{{ lead.demo_date_time}}</td>
+                                <td data-title="'Action'" align="center"><a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id,lead.status)"><i class="fa fa-eye"></i> View</a>
+                                <a href="#" class="btn btn-default btn-xs purple" ng-click="moveToHotInbox(lead.id,lead.status)"><i class="fa fa-mail-reply"></i> Move</a> 
+                                </td>                                
+                    </tr>
+                    <tr ng-if="$data.length==0">
+                        <td colspan="7" align="center">No Leads Found...</td>
+                    </tr>
+            </table>
+        </div>
+
+    <div ng-show="isHotInbox">
+            <table ng-table="tableParams" class="table" show-filter="true">
+                    <tr ng-repeat="lead in $data" ng-if="$data.length>0">
+                                <td title="'Sl.No'" ng-dblclick="getUpdateBox(lead.id,lead.lead_dept_id,0)" sortable="'sno'">{{lead.sno}}.</td>
+                                <td data-title="'Lead ID'" ng-dblclick="getUpdateBox(lead.id,lead.lead_dept_id,0)" sortable="'lead_id'" filter="{'lead_id':'text'}" style="cursor:pointer">{{ lead.lead_id }}</td>
+                                <td data-title="'Company name'" ng-dblclick="getUpdateBox(lead.id,lead.lead_dept_id,0)" sortable="'company_name'" filter="{'company_name':'text'}" style="cursor:pointer">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'" ng-dblclick="getUpdateBox(lead.id,lead.lead_dept_id,0)" sortable="'contact_person'" filter="{'contact_person':'text'}" style="cursor:pointer">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'" ng-dblclick="getUpdateBox(lead.id,lead.lead_dept_id,0)" sortable="'contact_no_1'" filter="{'contact_no_1':'text'}" style="cursor:pointer">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Demo Date and Time'" align="center" sortable="'demo_date_time'" filter="{'demo_date_time':'text'}" style="cursor:pointer">{{ lead.demo_date_time}}</td>
+                                <td data-title="'Action'" align="center"><a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id,lead.status)"><i class="fa fa-eye"></i> View</a></td>
+                    </tr>
+                    <tr ng-if="$data.length==0">
+                        <td colspan="7" align="center">No Leads Found...</td>
+                    </tr>
+            </table>
+        </div>
+            <div ng-show="isFollowup">
+            <table ng-table="tableParams" class="table" show-filter="true">
+                    <tr ng-repeat="lead in $data" ng-if="$data.length>0">
+                                <td title="'Sl.No'" ng-dblclick="getUpdateBox(lead.id,lead.lead_dept_id,1)" sortable="'sno'">{{lead.sno}}.</td>
+                                <td data-title="'Lead ID'" ng-dblclick="getUpdateBox(lead.id,lead.lead_dept_id,1)" sortable="'lead_id'" filter="{'lead_id':'text'}" style="cursor:pointer">{{ lead.lead_id }}</td>
+                                <td data-title="'Company name'" ng-dblclick="getUpdateBox(lead.id,lead.lead_dept_id,1)" sortable="'company_name'" filter="{'company_name':'text'}" style="cursor:pointer">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'" ng-dblclick="getUpdateBox(lead.id,lead.lead_dept_id,1)" sortable="'contact_person'" filter="{'contact_person':'text'}" style="cursor:pointer">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'" ng-dblclick="getUpdateBox(lead.id,lead.lead_dept_id,1)" sortable="'contact_no_1'" filter="{'contact_no_1':'text'}" style="cursor:pointer">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Followup Date and Time'"  ng-dblclick="getUpdateBox(lead.id,lead.lead_dept_id,1)" sortable="'followup_date_time'" filter="{'followup_date_time':'text'}" style="cursor:pointer" align="center">{{ lead.followup_date_time}}</td>
+                                <td data-title="'Action'" align="center"><a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id,lead.status)"><i class="fa fa-eye"></i> View</a></td>
+                    </tr>
+                    <tr ng-if="$data.length==0">
+                        <td colspan="7" align="center">No Leads Found...</td>
+                    </tr>
+            </table>
+        </div>
+                                </form>
+                                </div>

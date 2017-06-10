@@ -1,0 +1,73 @@
+                <!-- Page Body -->
+                <div class="page-body">
+                    <div class="row">
+					    <div class="col-lg-6 col-sm-12 col-xs-12 col-lg-offset-3">     
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="widget">
+                                        <div class="widget-header bordered-bottom bordered-blue">
+                                            <span class="widget-caption">Add Team</span>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div>
+                                                <form role="form" method="post" novalidate name="teamForm" id="teamForm" ng-submit="subForm(teamForm.$valid)" class="form-horizontal" autocomplete="off">
+                                                    <div class="form-group">
+                                                        <label class="col-lg-4 col-md-4 col-sm-12 control-label" for="name">Team Name</label>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                        <input class="form-control" ng-class="{'has-error':submitted && teamForm.name.$error.required || obj.exist}" id="name" name="name"  placeholder="Enter Teamname" onblur="this.placeholder='Enter Teamname'" onfocus="this.placeholder=''" type="text" ng-model="obj.name" ng-required="true">
+                                                        <p ng-show="submitted && teamForm.name.$error.required" class="error">Please Enter Teamname</p>
+                                                        <p ng-show="submitted && obj.exist && !teamForm.name.$error.required" class="error">Teamname Already Exists</p>
+                                                        </div>
+                                                    </div>
+
+                                                   <div class="col-lg-offset-4 col-md-offset-4">
+                                                    <button type="submit" name="sub" id="sub" class="btn btn-blue">{{obj.id ? 'Update' : 'Add'}}</button> <button type="reset" id="resetbtn" name="resetbtn" class="btn btn-red" ng-click="resetForm()">{{obj.id ? 'Cancel' : 'Clear'}}</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                       
+
+                    </div>
+
+                   
+                   <br />
+
+        <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <div class="widget">
+                                <div class="widget-header bordered-bottom bordered-yellow">
+                                    <span class="widget-caption">Teams</span>
+                                   
+                                </div>
+                                <div class="widget-body no-padding">
+                                    <table ng-table="tableParams" class="table" show-filter="true">
+                                        <tr ng-repeat="team in $data" ng-if="$data.length>0">
+                                            <td title="'Sl.No'" sortable="'sno'">{{team.sno}}.</td>
+                                            <td title="'Name'" sortable="'name'" filter="{'name':'text'}">{{team.name}}</td>
+                                            <td title="'Action'"  style="cursor: pointer;text-align:center">
+                                                <a href="#" class="btn btn-success btn-xs" ng-click="getTeam(team.id)" ng-attr-title="Edit"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                <div class="widget-buttons buttons-bordered">
+                                                <label>
+                                                    <input class="checkbox-slider slider-icon colored-success" type="checkbox" name="status_{{team.id}}" id="status_{{team.id}}" ng-model="status_team.id" ng-true-value="1" ng-false-value="0" ng-checked="team.status==1" ng-click="changeTeamStatus(team.id,status_team.id)">
+                                                    <span class="text"></span>
+                                                </label>
+                                            </div></td>
+                                        </tr>
+                                        <tr ng-if="$data.length==0">
+                                            <td colspan="4" align="center">No Records Found...</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+       
+                </div>
+                <!-- /Page Body -->

@@ -1,0 +1,42 @@
+<div class="widget-body no-padding">
+                                    <form>
+ <div class="table-responsive table-bordered ng-table-settings mar-top-20">
+        <div ng-show="isAllLeads">
+            <table ng-table="tableParams" class="table" show-filter="true">
+                    <tr ng-repeat="lead in $data" ng-if="$data.length>0">
+                                <td title="'Sl.No'" sortable="'sno'">{{lead.sno}}.</td>
+                                <td data-title="'Lead ID'" sortable="'lead_id'" filter="{'lead_id':'text'}">{{ lead.lead_id }}</td>
+                                <td data-title="'Company name'" sortable="'company_name'" filter="{'company_name':'text'}">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'" sortable="'contact_person'" filter="{'contact_person':'text'}">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'" sortable="'contact_no_1'" filter="{'contact_no_1':'text'}">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Demo Date and Time'" align="center" sortable="'demo_date_time'" filter="{'demo_date_time':'text'}">{{ lead.demo_date_time }}</td>
+                                <td data-title="'Lead Status'" align="center" sortable="'status'" filter="{'status':'text'}">{{ lead.status }}</td>
+                                <td data-title="'Action'" align="center"><a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id,lead.status)"><i class="fa fa-eye"></i> View</a>
+                                <a href="#" class="btn btn-default btn-xs purple" ng-click="moveToInbox(lead.id,lead.status)"><i class="fa fa-mail-reply"></i> Move</a> 
+                                </td>                                
+                    </tr>
+                    <tr ng-if="$data.length==0">
+                        <td colspan="8" align="center">No Leads Found...</td>
+                    </tr>
+            </table>
+        </div>
+        <div ng-show="isInbox">
+            <table ng-table="tableParams" class="table" show-filter="true">
+                    <tr ng-repeat="lead in $data" ng-if="$data.length>0">
+                                <td title="'Sl.No'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id)" sortable="'sno'" style="cursor:pointer">{{lead.sno}}.</td>
+                                <td data-title="'Lead ID'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id)" sortable="'lead_id'" filter="{'lead_id':'text'}" style="cursor:pointer">{{ lead.lead_id }}</td>
+                                <td data-title="'Company name'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id)" sortable="'company_name'" filter="{'company_name':'text'}" style="cursor:pointer">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id)" sortable="'contact_person'" filter="{'contact_person':'text'}" style="cursor:pointer">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id)" sortable="'contact_no_1'" filter="{'contact_no_1':'text'}" style="cursor:pointer">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Demo Date and Time'" align="center" ng-dblclick="getUpdateBox(lead.id,lead.lead_id)" sortable="'demo_date_time'" filter="{'demo_date_time':'text'}" style="cursor:pointer">{{ lead.demo_date_time }}</td>
+                                <td data-title="'Lead Status'" align="center" ng-dblclick="getUpdateBox(lead.id,lead.lead_id)" sortable="'status'" filter="{'status':'text'}" style="cursor:pointer">{{lead.status}}</td>
+                                <td data-title="'Action'" align="center"><a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id,lead.status)"><i class="fa fa-eye"></i> View</a></td>
+                    </tr>
+                    <tr ng-if="$data.length==0">
+                        <td colspan="8" align="center">No Leads Found...</td>
+                    </tr>
+            </table>
+        </div>
+</div>       
+                                </form>
+                                </div>

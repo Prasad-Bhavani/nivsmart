@@ -1,0 +1,138 @@
+.error
+{
+    margin: 0px;
+    line-height:10px;
+    color: #D95C5C;
+    font-size: 11px;
+    position: absolute;
+}
+.has-error
+{
+    border: 1px solid #D95C5C !important;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.usercss
+{
+	background-color: white;
+	padding: 5px;
+	margin: 5px 5px;
+	height: 31px !important;
+	color: #2dc3e8;
+}
+
+.acctitle
+{
+    color: blue;
+}
+
+.statushead
+{
+    background-color: #046067;
+    color: white;
+    padding: 3px;
+    margin: 0px;
+}
+
+.nopad
+{
+    padding: 0px !important;
+}
+
+.statusbody
+{
+    padding: 5px;
+}
+.assignbox
+{
+    border: 1px solid #427fed;
+    padding: 0px;
+    margin: 0px;
+}
+.assignbox h4
+{
+    background-color: #427fed;
+    padding:5px;
+    margin:0px;
+    color:white;
+}
+
+.assignbody
+{
+    padding: 10px;
+}
+
+.ngdialog.ngdialog-theme-default.custom-width-800 .ngdialog-content {
+    margin-top: -100px;
+    padding: 0px;
+    min-width: 800px;
+}
+.ngdialog.ngdialog-theme-default.custom-width-900 .ngdialog-content {
+    width: 900px;
+}
+.ribbon {
+   width: 399px;
+   position: absolute;
+   text-align: center;
+   font-size: 17px!important;
+   background-image: -ms-linear-gradient(top, #d64b4b 0%, #ab2c2c 100%);
+   font-family: 'Helvetica Neue',Helvetica, sans-serif;
+   }
+.ribbon h1 {
+   font-size: 25px!important;
+   margin:0px;
+   padding: 15px 10px;
+   font-weight: bold;
+   }
+.ribbon:before, .ribbon:after {
+   content: '';
+   position: absolute;
+   display: block;
+   bottom: -1em;
+   border: 1.5em solid #700000;
+   z-index: -1;
+   }
+.ribbon:before {
+   left: -2em;
+   border-right-width: 1.5em;
+   border-left-color: transparent;
+   }
+.ribbon:after {
+   right: -2em;
+   border-left-width: 1.5em;
+   border-right-color: transparent;
+   }
+.ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
+   border-color: #53a93f transparent transparent transparent;
+   position: absolute;
+   display: block;
+   border-style: solid;
+   bottom: -1em;
+   content: '';
+   }
+.ribbon .ribbon-content:before {
+   left: 0;
+   border-width: 1em 0 0 1em;
+   }
+.ribbon .ribbon-content:after {
+   right: 0;
+   border-width: 1em 1em 0 0;
+   }
+.ribbon-stitches-top {
+   margin-top:2px;
+   border-top: 0px dashed rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+   -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);
+   }
+.ribbon-stitches-bottom {
+   margin-bottom:2px;
+   border-top: 0px dashed rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+   -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.3);
+   }
+

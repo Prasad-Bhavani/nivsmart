@@ -1,0 +1,18 @@
+<div class="widget-body no-padding">
+                                    <form>
+ <div class="table-responsive table-bordered ng-table-settings mar-top-20">
+
+            <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped handcss" show-filter="true" width="100%" ng-show="isInboxLeads">
+                    <tr ng-repeat="lead in inboxleads">
+                                <td title="'Sl.No'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id,lead.pay_status)">{{$index+1}} {{lead.pay_status}}.</td>
+                                <td data-title="'Lead ID'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id,lead.pay_status)">{{ lead.lead_id }}</td>
+                                <td data-title="'Company name'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id,lead.pay_status)">{{ lead.company_name }}</td>
+                                <td data-title="'Contact Person'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id,lead.pay_status)">{{ lead.contact_person }}</td>
+                                <td data-title="'Contact Number'" ng-dblclick="getUpdateBox(lead.id,lead.lead_id,lead.pay_status)">{{ lead.contact_no_1 }}</td>
+                                <td data-title="'Demo Date and Time'" align="center"><span ng-show="lead.if_interest_demo==1" ng-dblclick="getUpdateBox(lead.id,lead.lead_id,lead.pay_status)">{{ lead.demo_date_time | format | date:'dd-MMM-yyyy hh:mm a'}}</span></td>
+                                <td data-title="'Action'" align="center"><a href="#" class="btn btn-default btn-xs purple" ng-click="getLead(lead.id,lead.status)"><i class="fa fa-eye"></i> View</a></td>
+                    </tr>
+            </table>
+</div>       
+                                </form>
+                                </div>
